@@ -4,9 +4,10 @@ import { Route } from 'react-router-dom';
 import Landing from './pages/Landing';
 import RootLayout from './layout/RootLayout';
 import Home from './pages/Home';
-import MeetingMinutesDetail from './pages/MeetingMinutesDetail';
 import MeetingMinutesInput from './pages/MeetingMinutesInput';
 import MeetingMinutesList from './pages/MeetingMinutesList';
+import MeetingMinutesText from './pages/MeetingMinutesText';
+import MeetingMinutesVoice from './pages/MeetingMinutesVoice';
 import Milestone from './pages/Milestone';
 import Profile from './pages/Profile';
 import ProjectInfo from './pages/ProjectInfo';
@@ -19,16 +20,16 @@ import Signin from './pages/Signin';
 import SignUp from './pages/SignUp';
 import TodoList from './pages/TodoList';
 
-
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path='/' element={<RootLayout/>}>
         <Route index element={<Landing />} />
         <Route path='home' element={<Home/>} />
-        <Route path='meetingminutesdetail' element={<MeetingMinutesDetail/>} />
         <Route path='meetingminutesinput' element={<MeetingMinutesInput/>} />
         <Route path='meetingminuteslist' element={<MeetingMinutesList/>} />
+        <Route path='meetingminutestext' element={<MeetingMinutesText/>} />
+        <Route path='meetingminutesvoice' element={<MeetingMinutesVoice/>} />
         <Route path='milestone' element={<Milestone/>} />
         <Route path='profile' element={<Profile/>} />
         <Route path='projectinfo' element={<ProjectInfo/>} />
