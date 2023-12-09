@@ -1,5 +1,5 @@
 .nav{
-  @apply fixed left-0 right-0 bottom-0 px-4 bg-white z-[1000]
+  @apply fixed left-0 right-0 bottom-0 px-4 bg-white border-t -border--grey300 z-[1000]
 }
 
 .items{
