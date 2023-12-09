@@ -3,7 +3,7 @@ import { createRoutesFromElements } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 import Landing from './pages/Landing';
 import RootLayout from './layout/RootLayout';
-import Main from './pages/Main';
+import Home from './pages/Home';
 import MeetingMinutesDetail from './pages/MeetingMinutesDetail';
 import MeetingMinutesInput from './pages/MeetingMinutesInput';
 import MeetingMinutesList from './pages/MeetingMinutesList';
@@ -25,7 +25,7 @@ const router = createBrowserRouter(
     <>
       <Route path='/' element={<RootLayout/>}>
         <Route index element={<Landing />} />
-        <Route path='main' element={<Main/>} />
+        <Route path='home' element={<Home/>} />
         <Route path='meetingminutesdetail' element={<MeetingMinutesDetail/>} />
         <Route path='meetingminutesinput' element={<MeetingMinutesInput/>} />
         <Route path='meetingminuteslist' element={<MeetingMinutesList/>} />
