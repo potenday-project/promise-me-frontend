@@ -101,6 +101,10 @@ export default {
         '--system-white': '#FFFFFF',
         '--system-danger': '#F5535E',
       },
+      screens: {
+        'minW': '320px',
+        'maxW': '767px',
+      }
     },
   },
   plugins: [],
