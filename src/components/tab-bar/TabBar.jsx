@@ -8,7 +8,7 @@ import {
   profileBlue,
   profileGrey
 } from '@/assets/icons/svg-icons.js';
-import styles from './Component.module.css';
+import styles from './TabBar.module.css';
 import { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 
