@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { circleX } from '@/assets/icons/svg-icons';
-import { circleAlert } from '@/assets/icons/svg-icons';
-import { searchGrey } from '@/assets/icons/svg-icons';
+import { circleX, circleAlert, searchBlue } from '@/assets/icons/svg-icons';
 
 function PlaceholderLine({
   name,
@@ -78,7 +76,7 @@ function PlaceholderLine({
               </button>
             )}
             <button onClick={onClick}>
-              <img src={searchGrey} alt="검색" />
+              <img src={searchBlue} alt="검색" />
             </button>
           </>
         )}
