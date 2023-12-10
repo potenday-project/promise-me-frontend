@@ -1,36 +1,62 @@
+import PropTypes from 'prop-types';
 import { useState } from 'react';
-
-function Message({ text, isValid }) {
-  if (!text || text === '') {
-    return null;
-  }
-
-  const messageText = isValid ? (
-    ''
-  ) : (
-    <span className="text-xs text-red-500">{text}</span>
-  );
-
-  return <div className="message">{messageText}</div>;
-}
 
 function PlaceholderLine({
   name,
   label,
-  defaultValue,
   placeholder,
   type,
+  size,
   onChange,
   isValid,
-  passMessage,
-  failMessage,
+  errorMessage,
 }) {
-  const hasValue =
-    defaultValue !== undefined && defaultValue !== null && defaultValue !== '';
+  const [value, setValue] = useState('');
+
+  const handleClearInput = () => {
+    setValue('');
+  };
+
+  const handleChange = (e) => {
+    setValue(e.target.value);
+    if (onChange) {
+      onChange(e);
+    }
+  };
+
+  const hasValue = value !== '';
+
+  const borderColorClass =
+    hasValue && !isValid ? '-border--system-danger' : '-border--grey500';
+
+  const focusBorderColorClass =
+    hasValue && !isValid
+      ? 'focus:-border--system-danger'
+      : 'focus:-border--primary-blue500';
+
+  const caretColorClass =
+    hasValue && !isValid ? ' -caret--system-danger' : '-caret--primary-blue500';
+
+  const buttonText = hasValue && !isValid ? '!' : 'x';
+
+  // Message 컴포넌트를 함수로 변경
+  const Message = () => {
+    if (!errorMessage || errorMessage === '') {
+      return null;
+    }
+
+    const messageText = isValid ? (
+      ''
+    ) : (
+      <span className="text-body5 -text--system-danger">{errorMessage}</span>
+    );
+
+    return <div className="message">{messageText}</div>;
+  };
 
   return (
-    <div className="relative flex flex-col gap-1">
-      <label htmlFor={name} className="text-slate-900">
+    <div className="relative flex flex-col w-full gap-1">
+      <label htmlFor={name} className="sr-only">
         {label}
       </label>
       <input
@@ -38,16 +64,34 @@ function PlaceholderLine({
         name={name}
         id={name}
         placeholder={placeholder}
-        defaultValue={defaultValue}
-        onChange={onChange}
-        className="border border-gray-300 p-2 rounded-md focus:border-gray-900 focus:outline-none w-[300px]"
+        value={value}
+        onChange={handleChange}
+        className={`w-full h-auto py-2
+        focus:outline-none ${focusBorderColorClass} border-b-2 ${borderColorClass}
+      ${caretColorClass} ${size === 'small' ? 'text-body4' : 'text-body3'}`}
       />
 
-      {hasValue && ( // 입력값이 있을 때만 메시지 표시
-        <Message text={isValid ? passMessage : failMessage} isValid={isValid} />
+      {hasValue && (
+        <>
+          <button className="absolute top-2 right-2" onClick={handleClearInput}>
+            {buttonText}
+          </button>
+          <Message />
+        </>
       )}
     </div>
   );
 }
 
 export default PlaceholderLine;
+
+PlaceholderLine.propTypes = {
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  size: PropTypes.string,
+  onChange: PropTypes.func,
+  isValid: PropTypes.bool,
+  errorMessage: PropTypes.string,
+};
