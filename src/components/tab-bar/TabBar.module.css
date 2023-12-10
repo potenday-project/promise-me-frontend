@@ -1,0 +1,19 @@
+.nav{
+  @apply fixed left-0 right-0 bottom-0 px-4 bg-white border-t -border--grey300 z-[1000]
+}
+
+.items{
+  @apply flex justify-center items-center text-center mx-auto max-w-screen-maxW h-[59px]
+}
+
+.item {
+  @apply w-1/4 h-[43px] flex items-center justify-center flex-col;
+}
+
+.icon {
+  @apply w-6 h-auto;
+}
+
+.text{
+  @apply text-body6;
+}
