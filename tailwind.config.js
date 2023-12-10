@@ -98,13 +98,11 @@ export default {
         '--grey100': '#F2F4F6',
         '--grey50': '#F9FAFB',
         '--system-black': '#121212',
+        '--system-success': '#009E79',
         '--system-white': '#FFFFFF',
         '--system-danger': '#F5535E',
+        '--system-warning': '#FF6700',
       },
-      screens: {
-        'minW': '320px',
-        'maxW': '767px',
-      }
     },
   },
   plugins: [],
