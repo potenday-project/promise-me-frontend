@@ -26,16 +26,10 @@ function PlaceholderLine({
 
   const hasValue = value !== '';
 
-  const borderColorClass =
-    hasValue && !isValid ? '-border--system-danger' : '-border--grey500';
-
-  const focusBorderColorClass =
+  const errorClass =
     hasValue && !isValid
-      ? 'focus:-border--system-danger'
-      : 'focus:-border--primary-blue500';
-
-  const caretColorClass =
-    hasValue && !isValid ? ' -caret--system-danger' : '-caret--primary-blue500';
+      ? 'border-b-2 -border--system-danger focus:-border--system-danger -caret--system-danger'
+      : 'border-b-2 -border--grey500 focus:-border--primary-blue500 -caret--primary-blue500';
 
   const buttonText = hasValue && !isValid ? '!' : 'x';
 
@@ -67,8 +61,8 @@ function PlaceholderLine({
         value={value}
         onChange={handleChange}
         className={`w-full h-auto py-2
-        focus:outline-none ${focusBorderColorClass} border-b-2 ${borderColorClass}
-      ${caretColorClass} ${size === 'small' ? 'text-body4' : 'text-body3'}`}
+        focus:outline-none border-b-2 ${errorClass}  
+        ${size === 'small' ? 'text-body4' : 'text-body3'}`}
       />
 
       {hasValue && (
