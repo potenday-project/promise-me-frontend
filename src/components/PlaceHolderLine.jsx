@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import { circleX, circleAlert } from '@/assets/icons/svg-icons';
 
 function PlaceholderLine({
   name,
@@ -31,8 +32,6 @@ function PlaceholderLine({
       ? 'border-b-2 -border--system-danger focus:-border--system-danger -caret--system-danger'
       : 'border-b-2 -border--grey500 focus:-border--primary-blue500 -caret--primary-blue500';
 
-  const buttonText = hasValue && !isValid ? '!' : 'x';
-
   // Message 컴포넌트를 함수로 변경
   const Message = () => {
     if (!errorMessage || errorMessage === '') {
@@ -42,14 +41,16 @@ function PlaceholderLine({
     const messageText = isValid ? (
       ''
     ) : (
-      <span className="text-body5 -text--system-danger">{errorMessage}</span>
+      <span className="pt-1 text-body5 -text--system-danger">
+        {errorMessage}
+      </span>
     );
 
     return <div className="message">{messageText}</div>;
   };
 
   return (
-    <div className="relative flex flex-col w-full gap-1">
+    <div className="relative w-full">
       <label htmlFor={name} className="sr-only">
         {label}
       </label>
@@ -65,14 +66,20 @@ function PlaceholderLine({
         ${size === 'small' ? 'text-body4' : 'text-body3'}`}
       />
 
-      {hasValue && (
-        <>
-          <button className="absolute top-2 right-2" onClick={handleClearInput}>
-            {buttonText}
-          </button>
-          <Message />
-        </>
-      )}
+      <div className="absolute flex gap-1 top-2 right-2">
+        {hasValue && !isValid ? (
+          <img src={circleAlert} alt="오류" />
+        ) : (
+          <>
+            {hasValue && (
+              <button onClick={handleClearInput}>
+                <img src={circleX} alt="삭제" />
+              </button>
+            )}
+          </>
+        )}
+      </div>
+      {hasValue && <Message />}
     </div>
   );
 }
