@@ -13,6 +13,7 @@ function PlaceholderLine({
   onChange,
   isValid,
   errorMessage,
+  onClick,
 }) {
   const [value, setValue] = useState('');
 
@@ -72,11 +73,11 @@ function PlaceholderLine({
         ) : (
           <>
             {hasValue && (
-              <button className="" onClick={handleClearInput}>
+              <button onClick={handleClearInput}>
                 <img src={circleX} alt="삭제" />
               </button>
             )}
-            <button className=" top-2 right-2" onClick="">
+            <button onClick={onClick}>
               <img src={searchGrey} alt="검색" />
             </button>
           </>
@@ -98,4 +99,5 @@ PlaceholderLine.propTypes = {
   onChange: PropTypes.func,
   isValid: PropTypes.bool,
   errorMessage: PropTypes.string,
+  onClick: PropTypes.func,
 };
