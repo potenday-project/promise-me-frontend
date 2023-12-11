@@ -34,6 +34,8 @@ function MyCalendar () {
     return classes.join(' ');
   };
 
+  // 선택한 날짜 불러오는 방법 : {selectedDate.toDateString()}
+  
   return (
     <div>
       <Calendar
@@ -42,7 +44,6 @@ function MyCalendar () {
         showNeighboringMonth={false}
         tileClassName={tileClassName} // tileClassName prop 추가
       />
-      <p>선택한 날짜: {selectedDate.toDateString()}</p>
     </div>
   )
 }
