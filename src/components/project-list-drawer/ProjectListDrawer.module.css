@@ -1,0 +1,11 @@
+.black{
+  @apply fixed inset-0 bg-black opacity-20 z-[2000] transition-all duration-500 ease-in-out;
+}
+
+.drawer{
+  @apply fixed top-0 left-0 -bg--system-white w-3/5 h-full px-4 pt-20 z-[2000] transform transition-transform duration-500 ease-in-out;
+}
+
+.closeButton{
+  @apply absolute top-0 right-0 w-12 h-12;
+}
