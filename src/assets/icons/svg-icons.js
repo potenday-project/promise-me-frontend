@@ -24,6 +24,7 @@ export { default as searchBlue } from './search-blue.svg';
 export { default as searchGrey } from './search-grey.svg';
 export { default as squareBeforeChecked } from './square-beforeChecked.svg';
 export { default as squareChecked } from './square-checked.svg';
+export { default as square } from './square.svg';
 export { default as todoBlue } from './todo-blue.svg';
 export { default as todoGrey } from './todo-grey.svg';
 export { default as triangleLeft } from './triangle-left.svg';
