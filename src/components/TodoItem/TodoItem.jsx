@@ -1,10 +1,6 @@
 import { useState } from 'react';
 import styled, { css } from 'styled-components';
-import {
-  squareBeforeChecked,
-  squareChecked,
-  square,
-} from '@/assets/icons/svg-icons';
+import { squareChecked, square } from '@/assets/icons/svg-icons';
 
 function TodoItem({ text }) {
   const [isChecked, setIsChecked] = useState(false);
@@ -15,19 +11,28 @@ function TodoItem({ text }) {
 
   return (
     <>
-      <StyledInputWrapper>
+      <StyledInputWrapper className="flex w-full">
         <StyledInput
+          className="hidden"
           type="checkbox"
           id={text}
           name={text}
           isChecked={isChecked}
         />
         <StyledLabel
+          className="flex bg-no-repeat cursor-pointer"
           htmlFor={text}
           onClick={onClickCheck}
           isChecked={isChecked}
         >
-          <StyledP isChecked={isChecked}>{text}</StyledP>
+          <StyledP
+            isChecked={isChecked}
+            className={`ml-8 ${
+              isChecked ? '-text--grey400' : '-text--system-black'
+            }    `}
+          >
+            {text}
+          </StyledP>
         </StyledLabel>
       </StyledInputWrapper>
     </>
@@ -36,15 +41,9 @@ function TodoItem({ text }) {
 
 export default TodoItem;
 
-const StyledInputWrapper = styled.div`
-  // padding-left: 8px;
-  // padding-right: 8px;
-  width: full;
-  display: flex;
-`;
+const StyledInputWrapper = styled.div``;
 
 const StyledInput = styled.input`
-  visibility: hidden;
   ${({ isChecked }) =>
     isChecked
       ? css`
@@ -56,29 +55,8 @@ const StyledInput = styled.input`
 `;
 
 const StyledLabel = styled.label`
-  cursor: pointer;
-  display: flex;
-  cursor: pointer;
-  ${({ isChecked }) =>
-    isChecked
-      ? css`
-          background-image: url(${squareChecked});
-          background-repeat: no-repeat;
-        `
-      : css`
-          background-image: url(${square});
-          background-repeat: no-repeat;
-        `}
+  background-image: url(${(props) =>
+    props.isChecked ? squareChecked : square});
 `;
 
-const StyledP = styled.p`
-  margin-left: 32px;
-  ${({ isChecked }) =>
-    isChecked
-      ? css`
-          color: gray;
-        `
-      : css`
-          color: black;
-        `}
-`;
+const StyledP = styled.p``;
