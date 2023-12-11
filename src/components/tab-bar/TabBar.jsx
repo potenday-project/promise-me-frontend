@@ -86,7 +86,7 @@ function TabBar() {
         </Link>
         <Link to="/profile" className={styles.item}>
           <img src={profileIcon} className={styles.icon} />
-          <span className={`${styles.text} ${profileText}`}>프로필</span>
+          <span className={`${styles.text} ${profileText}`}>내 정보</span>
         </Link>
       </div>
     </nav>
