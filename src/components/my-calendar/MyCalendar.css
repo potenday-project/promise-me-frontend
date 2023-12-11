@@ -1,0 +1,109 @@
+/* 전체 캘린더 */
+.react-calendar {
+  min-width: 328px;
+  max-width: 450px;
+  min-height: 341px;
+  background: var(--color-backgourd-default, #FFF);
+  border: 1px solid #a0a096;
+  line-height: 24px;
+  border-radius: var(--roundValue1, 8px);
+  padding: 0px 12px;
+  margin: 0 16px;
+}
+
+.react-calendar,
+.react-calendar *,
+.react-calendar *:before,
+.react-calendar *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* 날짜 숫자 버튼 전체 */
+.react-calendar button {
+  margin: 0;
+  outline: none;
+}
+
+.react-calendar__navigation {
+  display: flex;
+  height: 56px;
+  margin-bottom: 1em;
+  padding-top: 10px;
+}
+
+/* 달과 넘기는 버튼 */
+.react-calendar__navigation button {
+  min-width: 44px;
+  background: none;
+}
+
+/* 요일 글자 */
+.react-calendar__month-view__weekdays {
+  text-align: center;
+  text-transform: uppercase;
+  font: inherit;
+  font-size: 0.75em;
+  font-weight: bold;
+}
+
+.react-calendar__month-view__weekNumbers .react-calendar__tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: inherit;
+  font-size: 0.75em;
+  font-weight: bold;
+}
+
+/* 날짜 전체 item */
+.react-calendar__month-view__days button {
+  height: 45px;
+}
+
+/* 주말 날짜 */
+.react-calendar__month-view__days__day--weekend {
+  color: #121212;
+}
+
+/* 지난 달 날짜, 없앴음 */
+.react-calendar__month-view__days__day--neighboringMonth {
+  color: #757575;
+}
+
+.react-calendar__year-view .react-calendar__tile,
+.react-calendar__decade-view .react-calendar__tile,
+.react-calendar__century-view .react-calendar__tile {
+  padding: 2em 0.5em;
+}
+
+/* 날짜 숫자 */
+.react-calendar__tile {
+  max-width: 100%;
+  padding: 10px 6.6667px;
+  background: none;
+  text-align: center;
+  line-height: 16px;
+  font: inherit;
+  font-size: 0.833em;
+}
+
+/* 오늘 */
+.react-calendar__tile--now {
+  background: var(--blue-blue-500, #2F79E4);
+  border-radius: 20px;
+  color: var(--white, var(--color-backgourd-default, #FFF));
+}
+
+/* 클릭한 날짜 */
+.react-calendar__tile--active {
+  color: var(--blue-blue-500, #2F79E4);
+  border: 1px solid var(--blue-blue-500, #2F79E4);
+  border-radius: 20px;
+}
+
+/* 오늘 날짜를 클릭했을 때 */
+.overlap{
+  color: #121212;
+}
