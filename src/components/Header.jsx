@@ -60,7 +60,7 @@ function Header() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 w-full m-auto z-[1000]">
+      <header className="fixed top-0 left-0 w-full m-auto z-[1000] -bg--system-white">
         <div className="flex justify-between items-center w-full">
           <button
             className="w-12 h-12"
