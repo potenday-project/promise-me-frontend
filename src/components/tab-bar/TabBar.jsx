@@ -53,7 +53,8 @@ function TabBar() {
   );
 
   // 탭바 불필요한 페이지에서 제거하기
-  if (pathname === '/landing'
+  if (pathname === '/'
+    || pathname === '/landing'
     || pathname === '/signin'
     || pathname === '/signup'
     || pathname === '/projectinfo'
