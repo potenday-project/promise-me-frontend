@@ -6,16 +6,29 @@ import { useLocation } from 'react-router-dom';
 function RootLayout() {
   const { pathname } = useLocation();
 
-  let isHiddenPadding = null;
+  // 탭바 존재하는 페이지에서 패딩 적용해주기
+  let isHiddenTabBarPadding = null;
 
-  if ( pathname === '/' || pathname === '/signin' || pathname === '/signup') {
-    isHiddenPadding = null;
+  // TabBar 없는 페이지
+  if ( pathname === '/' ||
+        pathname === '/signin' ||
+        pathname === '/signup' ||
+        pathname === '/putcategory' ||
+        pathname === '/putduration' ||
+        pathname === '/putmembers' ||
+        pathname === '/putprojectname' ||
+        pathname === '/puttopic' ||
+        pathname === '/meetingminutesdetail' ||
+        pathname === '/meetingminutestext' ||
+        pathname === '/meetingminutesvoice'
+    ) {
+      isHiddenTabBarPadding = null;
   }
 
   return (
     <>
       <Header />
-      <main className={!isHiddenPadding ? 'pb-20' : isHiddenPadding}>
+      <main className={`pt-12 ${!isHiddenTabBarPadding ? 'pb-20' : isHiddenTabBarPadding}`}>
         <Outlet />
       </main>
       <TabBar />
