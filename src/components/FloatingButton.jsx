@@ -14,13 +14,13 @@ function FloatingButton() {
   };
 
   return (
-    <div className="fixed bottom-[calc(16px+60px)] right-4  h-12">
+    <div className="fixed bottom-[calc(16px+60px)] z-[3000] right-4 h-12">
       {isOpen && (
         <div
           onClick={closeOverlay}
           className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-60"
         >
-          <div className="absolute bottom-[calc(16px+60px)] right-4 flex flex-col gap-2 items-end text-title3 -text--system-white ">
+          <div className="absolute bottom-[calc(16px+60px)]  right-4 flex flex-col gap-2 items-end text-title3 -text--system-white ">
             <dl className="flex items-center gap-4 ">
               <dt>
                 <p>회의 녹음하기</p>
