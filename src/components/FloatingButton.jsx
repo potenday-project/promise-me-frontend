@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { mic, noteTaking, editDefault } from '@/assets/icons/svg-icons';
+import { Link } from 'react-router-dom';
 
 function FloatingButton() {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +14,7 @@ function FloatingButton() {
   };
 
   return (
-    <div className="fixed bottom-[calc(16px+60px)] right-4">
+    <div className="fixed bottom-[calc(16px+60px)] right-4  h-12">
       {isOpen && (
         <div
           onClick={closeOverlay}
@@ -25,14 +26,9 @@ function FloatingButton() {
                 <p>회의 녹음하기</p>
               </dt>
               <dd>
-                <button className="rounded-full">
-                  <img
-                    onClick={() => console.log('Button 1 clicked')}
-                    src={mic}
-                    alt=""
-                    className=""
-                  />
-                </button>
+                <Link to="/MeetingMinutesVoice">
+                  <img src={mic} alt="" className="" />
+                </Link>
               </dd>
             </dl>
             <dl className="flex items-center gap-4">
@@ -40,14 +36,9 @@ function FloatingButton() {
                 <p>회의록 직접 쓰기</p>
               </dt>
               <dd>
-                <button className="rounded-full">
-                  <img
-                    onClick={() => console.log('Button 2 clicked')}
-                    src={noteTaking}
-                    alt=""
-                    className=""
-                  />
-                </button>
+                <Link to="/MeetingMinutesText">
+                  <img src={noteTaking} alt="" className="" />
+                </Link>
               </dd>
             </dl>
           </div>
