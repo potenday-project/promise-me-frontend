@@ -1,7 +1,7 @@
 import { barChart, clock } from '@/assets/icons/svg-icons.js';
 import { useState, useEffect } from 'react';
 
-function Progress ({ percent, dday }) {
+function ProgressBar ({ percent, dday }) {
   // prop 상태 관리, 기본값 null 로 설정
   const [loadingPercent, setLoadingPercent] = useState(null);
   const [loadingDday, setLoadingDday] = useState(null);
@@ -23,7 +23,7 @@ function Progress ({ percent, dday }) {
           {loadingPercent ? '계산 중...' : `${percent}%`}
         </p>
       </div>
-      <span className='dday aria-hidden'>|</span>
+      <span className='dday' aria-hidden='true'>|</span>
       <div className='flex items-center gap-1'>
         <img src={clock}/>
         <p className='text-headline4 mr-1'>남은 기간</p>
@@ -35,4 +35,4 @@ function Progress ({ percent, dday }) {
   )
 }
 
-export default Progress;
+export default ProgressBar;
