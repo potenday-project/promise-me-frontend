@@ -4,6 +4,7 @@
 export { default as barChart } from './bar-chart.svg';
 export { default as chevronLeft } from './chevron-left.svg';
 export { default as chevronRight } from './chevron-right.svg';
+export { default as chevronBigRight } from './chevron-big-right.svg';
 export { default as chevronUp } from './chevron-up.svg';
 export { default as circleAlert } from './circle-alert.svg';
 export { default as circleX } from './circle-x.svg';
