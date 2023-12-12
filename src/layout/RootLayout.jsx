@@ -28,7 +28,7 @@ function RootLayout() {
   return (
     <>
       <Header />
-      <main className={!isHiddenTabBarPadding ? 'pb-20' : isHiddenTabBarPadding}>
+      <main className={`pt-12 ${!isHiddenTabBarPadding ? 'pb-20' : isHiddenTabBarPadding}`}>
         <Outlet />
       </main>
       <TabBar />
