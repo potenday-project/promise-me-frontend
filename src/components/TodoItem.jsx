@@ -2,11 +2,11 @@ import { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { squareChecked, square } from '@/assets/icons/svg-icons';
 
-function TodoItem({ text }) {
-  const [isChecked, setIsChecked] = useState(false);
+function TodoItem({ text, isChecked }) {
+  const [isCheckedState, setIsChecked] = useState(isChecked);
 
   const onClickCheck = () => {
-    setIsChecked(!isChecked);
+    setIsChecked(!isCheckedState);
   };
 
   return (
@@ -17,18 +17,18 @@ function TodoItem({ text }) {
           type="checkbox"
           id={text}
           name={text}
-          isChecked={isChecked}
+          isChecked={isCheckedState}
         />
         <StyledLabel
           className="flex bg-no-repeat cursor-pointer"
           htmlFor={text}
           onClick={onClickCheck}
-          isChecked={isChecked}
+          isChecked={isCheckedState}
         >
           <StyledP
-            isChecked={isChecked}
+            isChecked={isCheckedState}
             className={`ml-8 ${
-              isChecked ? '-text--grey400' : '-text--system-black'
+              isCheckedState ? '-text--grey400' : '-text--system-black'
             }    `}
           >
             {text}
