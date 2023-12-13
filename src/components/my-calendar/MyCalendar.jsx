@@ -37,7 +37,7 @@ function MyCalendar () {
   // 선택한 날짜 불러오는 방법 : {selectedDate.toDateString()}
   
   return (
-    <div>
+    <div className="flex justify-center mx-4">
       <Calendar
         locale="en"
         onChange={handleDateChange}
