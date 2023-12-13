@@ -3,8 +3,15 @@ import PropTypes from 'prop-types';
 function TitleTextBox({ title, sub }) {
   return (
     <>
-      <p className="py-[15px] mt-6 text-headline2">{title}</p>
-      <p className="text-body4">{sub}</p>
+      <p
+        style={{ whiteSpace: 'pre-line' }}
+        className="h-[60] mt-6 text-headline2"
+      >
+        {title}
+      </p>
+      <p style={{ whiteSpace: 'pre-line' }} className="text-body4">
+        {sub}
+      </p>
     </>
   );
 }
