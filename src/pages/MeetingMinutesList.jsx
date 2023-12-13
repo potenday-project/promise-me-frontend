@@ -22,19 +22,14 @@ function MeetingMinutesList() {
       });
   }, []);
 
-  const arry = meetingMinutes;
-
-  console.log({ meetingMinutes });
-
   return (
     <>
       <FloatingButton />
       <TitleTextBox
-        title={`프로젝트 10일의 기적의 회의록은 총 ${meetingMinutes.length}개 입니다`}
-        sub="서브타이틀 테스트 입니다"
+        title={`프로젝트 10일의 기적의 \n회의록은 총 ${meetingMinutes.length}개 입니다`}
       />
       <div className="grid grid-cols-2 gap-4 mt-6">
-        {arry.map((data, index) => (
+        {meetingMinutes.map((data, index) => (
           <ButtonMeetingMinutes
             key={index}
             title={data.meetingContent}
