@@ -11,7 +11,7 @@ function TodoItem({ text, isChecked }) {
 
   return (
     <>
-      <StyledInputWrapper className="flex w-full">
+      <StyledInputWrapper className="flex w-full px-2">
         <StyledInput
           className="hidden"
           type="checkbox"
