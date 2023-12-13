@@ -11,7 +11,9 @@ function RootLayout() {
   // 헤더 존재하는 페이지에서 패딩 적용
   let isHiddenHeaderPadding = 'pt-12';
   // 배경색 존재하는 페이지 배경색 적용
-  let isBackgrounColor = '-bg--primary-blue50';
+  let isBackgrounColor = '';
+  // 패딩 존재하는 페이지 패딩 적용
+  let isPadding = 'px-4';
 
   // TabBar 없는 페이지
   if (
@@ -36,15 +38,19 @@ function RootLayout() {
   }
 
   // backgoundColor 있는 페이지
-  if (pathname === '/home' || pathname === '/TodoList') {
-    isBackgrounColor = ``;
+  if (pathname === '/todolist') {
+    isBackgrounColor = '-bg--primary-blue50';
+  }
+
+  if (pathname === '/home') {
+    isPadding = '';
   }
 
   return (
     <>
       <Header />
       <main
-        className={`${isHiddenHeaderPadding} ${isHiddenTabBarPadding} ${isBackgrounColor} px-4 h-screen`}
+        className={`${isHiddenHeaderPadding} ${isHiddenTabBarPadding} ${isBackgrounColor} ${isPadding} min-h-screen`}
       >
         <Outlet />
       </main>
