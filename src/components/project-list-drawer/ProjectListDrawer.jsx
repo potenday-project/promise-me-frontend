@@ -29,9 +29,11 @@ function ProjectListDrawer({ isOpen, onClose }) {
         <button className={styles.closeButton} onClick={onClose}>
           <img className="w-full h-full" src={x} alt="닫기" />
         </button>
-        {projectList.map((item, index) => (
-          <ButtonBox key={index}>{item.title}</ButtonBox>
-        ))}
+        <ul className='flex flex-col gap-4'>
+          {projectList.map((title, index) => (
+            <ButtonBox key={index}>{title}</ButtonBox>
+          ))}
+        </ul>
       </div>
     </>
   );
