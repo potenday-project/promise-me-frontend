@@ -8,7 +8,6 @@
   line-height: 24px;
   border-radius: var(--roundValue1, 8px);
   padding: 0px 12px;
-  margin: 0 16px;
 }
 
 .react-calendar,
