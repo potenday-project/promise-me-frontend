@@ -2,12 +2,13 @@ import { useState } from "react";
 import Calendar from 'react-calendar';
 import '@/components/my-calendar/MyCalendar.css';
 
-function MyCalendar () {
+function MyCalendar ({ SelectedDate }) {
   // 선택한 날짜 상태관리, 초기값은 현재 날짜
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
+    SelectedDate(date); // 선택한 날짜를 상위 컴포넌트로 전달
   }
 
   // classes 배열을 생성하여 해당 날짜에 적용할 클래스를 저장
