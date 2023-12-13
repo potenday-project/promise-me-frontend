@@ -15,13 +15,34 @@ function TodoList() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
+
+  const handlePrevDate = () => {
+    const prevDate = new Date(selectedDate); // 이전 날짜 계산
+    prevDate.setDate(prevDate.getDate() - 1);
+    setSelectedDate(prevDate); // 상태 업데이트
+  };
+
+  const handleNextDate = () => {
+    const nextDate = new Date(selectedDate); // 다음 날짜 계산
+    nextDate.setDate(nextDate.getDate() + 1);
+    setSelectedDate(nextDate); // 상태 업데이트
+  };
+
   const [todoArray, setTodoArray] = useState([
     {
-      text: '컬러칩 체크하기',
+      text: '컬러칩 1',
       isChecked: false,
     },
     {
-      text: '컬러칩 체크하기',
+      text: '컬러칩 22',
+      isChecked: true,
+    },
+    {
+      text: '333',
+      isChecked: false,
+    },
+    {
+      text: '444',
       isChecked: true,
     },
   ]);
@@ -39,6 +60,7 @@ function TodoList() {
   };
 
   const handleDatePickerDateChange = (date) => {
+    console.log(selectedDate);
     setSelectedDate(date);
     setIsModalOpen(false);
   };
@@ -105,10 +127,10 @@ function TodoList() {
             </li>
           </ul>
         </div>
-        <button className="-order-1">
+        <button className="-order-1" onClick={handlePrevDate}>
           <img src={triangleLeft} alt="이전날짜" />
         </button>
-        <button>
+        <button onClick={handleNextDate}>
           <img src={triangleRight} alt="다음날짜" />
         </button>
       </div>
