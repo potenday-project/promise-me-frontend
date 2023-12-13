@@ -9,7 +9,10 @@ function TitleTextBox({ title, sub }) {
       >
         {title}
       </p>
-      <p style={{ whiteSpace: 'pre-line' }} className="text-body4">
+      <p
+        style={{ whiteSpace: 'pre-line' }}
+        className="text-body4 -text--grey700"
+      >
         {sub}
       </p>
     </>
