@@ -17,31 +17,31 @@ import PutProjectName from './pages/PutProjectName';
 import PutTopic from './pages/PutTopic';
 import Signin from './pages/Signin';
 import SignUp from './pages/SignUp';
-import TodoList from './pages/TodoList';
+import TodoList from './pages/todo-list/TodoList';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path='/' element={<RootLayout/>}>
+      <Route path="/" element={<RootLayout />}>
         <Route index element={<Landing />} />
-        <Route path='home' element={<Home/>} />
-        <Route path='meetingminutesdetail' element={<MeetingMinutesDetail/>} />
-        <Route path='meetingminuteslist' element={<MeetingMinutesList/>} />
-        <Route path='meetingminutestext' element={<MeetingMinutesText/>} />
-        <Route path='meetingminutesvoice' element={<MeetingMinutesVoice/>} />
-        <Route path='profile' element={<Profile/>} />
-        <Route path='projectinfo' element={<ProjectInfo/>} />
-        <Route path='putcategory' element={<PutCategory/>} />
-        <Route path='putduration' element={<PutDuration/>} />
-        <Route path='putmembers' element={<PutMembers/>} />
-        <Route path='putprojectname' element={<PutProjectName/>} />
-        <Route path='puttopic' element={<PutTopic/>} />
-        <Route path='signin' element={<Signin/>} />
-        <Route path='signup' element={<SignUp/>} />
-        <Route path='todolist' element={<TodoList/>} />
+        <Route path="home" element={<Home />} />
+        <Route path="meetingminutesdetail" element={<MeetingMinutesDetail />} />
+        <Route path="meetingminuteslist" element={<MeetingMinutesList />} />
+        <Route path="meetingminutestext" element={<MeetingMinutesText />} />
+        <Route path="meetingminutesvoice" element={<MeetingMinutesVoice />} />
+        <Route path="profile" element={<Profile />} />
+        <Route path="projectinfo" element={<ProjectInfo />} />
+        <Route path="putcategory" element={<PutCategory />} />
+        <Route path="putduration" element={<PutDuration />} />
+        <Route path="putmembers" element={<PutMembers />} />
+        <Route path="putprojectname" element={<PutProjectName />} />
+        <Route path="puttopic" element={<PutTopic />} />
+        <Route path="signin" element={<Signin />} />
+        <Route path="signup" element={<SignUp />} />
+        <Route path="todolist" element={<TodoList />} />
       </Route>
     </>
   )
-)
+);
 
 export default router;
