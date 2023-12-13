@@ -14,15 +14,6 @@ import {
 function TodoList() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const dateFormatter = new Intl.DateTimeFormat('ko-KR', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    weekday: 'long',
-  });
-
-  const formattedDate = dateFormatter.format(selectedDate);
   const [inputValue, setInputValue] = useState('');
   const [todoArray, setTodoArray] = useState([
     {
@@ -58,7 +49,7 @@ function TodoList() {
         ...prevTodoArray,
         { text: inputValue, isChecked: false },
       ]);
-      setInputValue(''); // 52번째 줄 수정: inputValue를 빈 문자열로 설정
+      setInputValue('');
     }
   };
 
@@ -66,7 +57,14 @@ function TodoList() {
     <section className="flex flex-col h-[calc(100vh-108px)] justify-center">
       <div className="flex flex-row gap-4">
         <div className="w-full -bg--system-white rounded-3xl mx-auto h-auto p-4 flex flex-col border-[1px] -border--grey300">
-          <button onClick={handleDatePickerClick}>{formattedDate}</button>
+          <button onClick={handleDatePickerClick}>
+            {selectedDate.toLocaleDateString('ko-KR', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+              weekday: 'long',
+            })}
+          </button>
           {isModalOpen && (
             <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
               <div className="modal-content">
