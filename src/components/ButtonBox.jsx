@@ -17,7 +17,8 @@ function ButtonBox({
   } else {
     switch (status) {
       case 'revers':
-        colorClass = 'border-[1px] -border--primary-blue500 -text--primary-blue500';
+        colorClass =
+          'border-[1px] -border--primary-blue500 -text--primary-blue500';
         break;
       default:
         colorClass = '-bg--primary-blue500 -text--system-white';
@@ -36,8 +37,11 @@ function ButtonBox({
   };
 
   const handleClick = () => {
-    if (typeof onClick === 'function') {
-      onClick(); // 수정 필요: onClick 함수 호출
+    if (onClick) {
+      onClick();
+      handleNavigate();
+    } else {
+      handleNavigate();
     }
   };
 
@@ -47,7 +51,7 @@ function ButtonBox({
       className={`p-2.5 text-title4 box-border rounded-lg w-full ${colorClass} mt-${mt} mb-${mb}`}
       disabled={disable}
       {...restProps}
-      onClick={handleClick} // 수정 필요: handleClick 함수로 연결
+      onClick={handleClick}
     ></button>
   );
 }
@@ -56,7 +60,7 @@ export default ButtonBox;
 
 ButtonBox.propTypes = {
   type: PropTypes.string,
-  status : PropTypes.text,
+  status: PropTypes.string,
   disable: PropTypes.bool,
   onClick: PropTypes.func,
   navigateTo: PropTypes.string,
