@@ -5,6 +5,7 @@ function ButtonBox({
   type = 'button',
   revers = false,
   disable = false,
+  onClick,
   navigateTo = '/',
   ...restProps
 }) {
@@ -25,13 +26,19 @@ function ButtonBox({
     }
   };
 
+  const handleClick = () => {
+    if (typeof onClick === 'function') {
+      onClick(); // 수정 필요: onClick 함수 호출
+    }
+  };
+
   return (
     <button
       type={type}
       className={`p-2.5 text-title4 box-border rounded-lg w-full ${colorClass}`}
       disabled={disable}
       {...restProps}
-      onClick={handleNavigate}
+      onClick={handleClick} // 수정 필요: handleClick 함수로 연결
     ></button>
   );
 }
@@ -42,5 +49,6 @@ ButtonBox.propTypes = {
   type: PropTypes.string,
   revers: PropTypes.bool,
   disable: PropTypes.bool,
+  onClick: PropTypes.func,
   navigateTo: PropTypes.string,
 };
