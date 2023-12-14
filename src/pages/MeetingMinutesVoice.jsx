@@ -4,10 +4,12 @@ import ButtonBox from '@/components/ButtonBox';
 
 import TitleTextBox from '@/components/TitleTextBox';
 
+const projectId = 1;
+
 const MeetingMinutesVoice = () => {
   const [stream, setStream] = useState();
   const [media, setMedia] = useState();
-  const [onRec, setOnRec] = useState(true);
+  // const [onRec, setOnRec] = useState(true);
   const [source, setSource] = useState();
   const [analyser, setAnalyser] = useState();
   const [audioUrl, setAudioUrl] = useState();
@@ -120,11 +122,9 @@ const MeetingMinutesVoice = () => {
           mediaRecorder.ondataavailable = async function (e) {
             const wavBlob = await convertToWav(e.data);
             setAudioUrl(wavBlob);
-            setOnRec(true);
             setRecState(0);
           };
         } else {
-          setOnRec(false);
           setRecState(1);
         }
       };
@@ -135,7 +135,6 @@ const MeetingMinutesVoice = () => {
     media.ondataavailable = async function (e) {
       const wavBlob = await convertToWav(e.data);
       setAudioUrl(wavBlob);
-      setOnRec(true);
       setRecState(0);
     };
 
@@ -157,6 +156,7 @@ const MeetingMinutesVoice = () => {
 
     const formData = new FormData();
     formData.append('voiceFile', sound, 'soundBlob.wav');
+    formData.append('projectId', projectId);
 
     axios
       .post('http://localhost:8080/meeting/transfer', formData)
@@ -198,7 +198,11 @@ const MeetingMinutesVoice = () => {
           </p>
         </div>
         <div className="fixed w-[calc(100vw-32px)] bottom-4">
-          <ButtonBox onClick={onSubmitAudioFile} disable={recState}>
+          <ButtonBox
+            onClick={onSubmitAudioFile}
+            disable={recState}
+            navigateTo="/meetingminuteslist"
+          >
             녹음완료
           </ButtonBox>
         </div>
