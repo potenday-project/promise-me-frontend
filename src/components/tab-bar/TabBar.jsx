@@ -66,6 +66,7 @@ function TabBar() {
     ||pathname === '/meetingminutesdetail'
     || pathname === '/meetingminutestext' 
     || pathname === '/meetingminutesvoice'
+    || pathname === '/roleinfo'
     ) {
       return null;
     }

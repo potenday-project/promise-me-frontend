@@ -38,7 +38,8 @@ function Header() {
       pathname === '/putduration' ||
       pathname === '/putmembers' ||
       pathname === '/putprojectname' ||
-      pathname === '/puttopic'
+      pathname === '/puttopic' ||
+      pathname === '/roleinfo'
     ) {
       setTitle('프로젝트 만들기');
     }
