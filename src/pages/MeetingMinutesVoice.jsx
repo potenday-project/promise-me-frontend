@@ -1,4 +1,4 @@
-import ButtonBox from '@/components/ButtonBox';
+// import ButtonBox from '@/components/ButtonBox';
 import TitleTextBox from '@/components/TitleTextBox';
 function MeetingMinutesVoice() {
   return (
@@ -16,7 +16,7 @@ function MeetingMinutesVoice() {
         </p>
       </div>
       <div className="fixed w-[calc(100vw-32px)] bottom-4">
-        <ButtonBox>녹음완료</ButtonBox>
+        <button className="bg-red-600">녹음완료</button>
       </div>
     </section>
   );
