@@ -5,6 +5,7 @@ import PlaceholderLine from './PlaceHolderLine';
 import PlaceholderRound from './PlaceHolderRound';
 
 function TestPlaceHolder() {
+  const teamName = /^.{0,14}[가-힣a-zA-Z0-9]$/; // 한글 영문 숫자 1~15글자
   const koreaName = /^.{1,9}[가-힣]$/; // 한글 2~10글자
   const nickName = /^.{0,40}[a-z | A-Z]$/; // 영문 3~15글자
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // 일반적인 이메일 형식
@@ -12,6 +13,7 @@ function TestPlaceHolder() {
 
   const [formState, setFormState] = useState({
     name: '',
+    teamname: '',
     username: '',
     email: '',
     password: '',
@@ -20,6 +22,7 @@ function TestPlaceHolder() {
   // 유효성 검사 상태
   const [validationErrors, setValidationErrors] = useState({
     name: false,
+    teamname: false,
     username: false,
     email: false,
     password: false,
@@ -37,6 +40,9 @@ function TestPlaceHolder() {
     let isValid;
 
     switch (name) {
+      case 'teamname':
+        isValid = teamName.test(value);
+        break;
       case 'name':
         isValid = koreaName.test(value);
         break;
@@ -75,7 +81,17 @@ function TestPlaceHolder() {
 
   return (
     <form className="flex flex-col items-start justify-start gap-2 p-40 pt-6 mt-4 border-t-2 border-gray-800">
-      <PlaceholderRound
+      <PlaceholderLine
+        name="teamname"
+        label="팀이름"
+        defaultValue={formState.teamname}
+        placeholder="팀이름을 입력해 주세요"
+        type="text"
+        onChange={handleDebounceInput}
+        isValid={!validationErrors.teamname && formState.teamname !== ''}
+        errorMessage="1자 이상 15자 이하의 한글,영문,숫자 조합"
+      />
+      {/* <PlaceholderRound
         name="name"
         label="이름"
         defaultValue={formState.name}
@@ -104,7 +120,7 @@ function TestPlaceHolder() {
         onChange={handleDebounceInput}
         isValid={!validationErrors.email && formState.email !== ''}
         errorMessage="올바른 이메일 형식이 아닙니다."
-      />
+      /> */}
       {/* 
       <PlaceholderLine
         name="name"
@@ -127,18 +143,8 @@ function TestPlaceHolder() {
         isValid={!validationErrors.email && formState.email !== ''}
         errorMessage="올바른 이메일 형식이 아닙니다."
       /> */}
-      <PlaceholderLine
-        name="username"
-        label="닉네임"
-        defaultValue={formState.username}
-        placeholder="닉네임을 입력해 주세요"
-        type="text"
-        onChange={handleDebounceInput}
-        isValid={!validationErrors.username && formState.username !== ''}
-        errorMessage="최소 3자 이상 15자 이하의 영문"
-      />
 
-      <PlaceholderLine
+      {/* <PlaceholderLine
         name="password"
         label="비밀번호"
         defaultValue={formState.password}
@@ -159,7 +165,7 @@ function TestPlaceHolder() {
           !validationErrors.passwordConfirm && formState.passwordConfirm !== ''
         }
         errorMessage="비밀번호와 일치하지 않습니다. 다시 확인해주세요."
-      />
+      /> */}
       <div className="w-full mt-4 text-center">
         {/* <button
           type="submit"

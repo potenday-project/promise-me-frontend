@@ -20,7 +20,7 @@ function DDay () {
         const DaysDiff = Math.ceil(TimeDiff / (1000 * 3600 * 24));
         setRemainingDays(DaysDiff); // 데이터 설정
       } catch (error) {
-        console.erroe('데이터를 불러오는 중 오류가 발생하였습니다.', error)
+        console.error('데이터를 불러오는 중 오류가 발생하였습니다.', error)
       }
     };
     fetchData();

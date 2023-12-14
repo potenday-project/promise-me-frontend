@@ -3,22 +3,27 @@ import ErrorMessage from './ErrorMessage';
 
 function ButtonRound({
   type = 'button',
-  clicked = false,
-  selected = false,
-  error = false,
+  status = 'default',
   isValid,
   errorMessage,
-
   onClick,
   ...restProps
 }) {
-  const colorClass = clicked
-    ? '-bg--primary-blue100 -text--system-black border-[1px] -border--primary-blue300'
-    : selected
-      ? '-bg--primary-blue500 -text--system-white'
-      : error
-        ? 'border-[1px] -border--system-danger -text--system-black -bg--system-white'
-        : 'border-[1px] -border--grey300 -text--system-black -bg--grey100';
+  let colorClass;
+  switch (status) {
+    case 'clicked':
+      colorClass = '-bg--primary-blue100 -text--system-black border-[1px] -border--primary-blue300';
+      break;
+    case 'selected':
+      colorClass = '-bg--primary-blue500 -text--system-white';
+      break;
+    case 'error':
+      colorClass = 'border-[1px] -border--system-danger -text--system-black -bg--system-white';
+      break;
+    default:
+      colorClass = 'border-[1px] -border--grey300 -text--system-black -bg--grey100';
+      break;
+  }
 
   const hasValue = errorMessage !== '';
 
@@ -53,9 +58,7 @@ export default ButtonRound;
 
 ButtonRound.propTypes = {
   type: PropTypes.string,
-  clicked: PropTypes.bool,
-  selected: PropTypes.bool,
-  error: PropTypes.bool,
+  status: PropTypes.string,
   onClick: PropTypes.func,
   isValid: PropTypes.bool,
   errorMessage: PropTypes.string,
