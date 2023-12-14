@@ -174,7 +174,7 @@ const MeetingMinutesVoice = () => {
         <TitleTextBox title="녹음을 시작합니다."></TitleTextBox>
         <div className="flex flex-col items-center gap-4 m-9">
           <img
-            onClick={onRec ? onRecAudio : offRecAudio}
+            onClick={recState == 2 ? onRecAudio : offRecAudio}
             src=""
             alt={
               !recState
@@ -186,12 +186,14 @@ const MeetingMinutesVoice = () => {
             className="-bg--grey100 w-[240px] h-[240px]"
           ></img>
           <p className="text-center text-title4">
-            {onRec ? (
-              '캐릭터를 눌러 녹음을 시작해 주세요'
-            ) : (
+            {!recState ? (
+              '성공적으로 녹음이 완료 되었어요!'
+            ) : recState === 1 ? (
               <>
                 녹음을 완료하시면 녹음한 내용을 <br /> AI가 요약해드려요
               </>
+            ) : (
+              '캐릭터를 눌러 녹음을 시작해 주세요'
             )}
           </p>
         </div>
