@@ -26,7 +26,10 @@ function FloatingButton() {
                 <p>회의 녹음하기</p>
               </dt>
               <dd>
-                <Link to="/MeetingMinutesVoice">
+                <Link
+                  to="/meetingminutesvoice"
+                  onClick={() => window.scrollTo(0, 0)}
+                >
                   <img src={mic} alt="" className="" />
                 </Link>
               </dd>
@@ -36,7 +39,10 @@ function FloatingButton() {
                 <p>회의록 직접 쓰기</p>
               </dt>
               <dd>
-                <Link to="/MeetingMinutesText">
+                <Link
+                  to="/meetingminutestext"
+                  onClick={() => window.scrollTo(0, 0)}
+                >
                   <img src={noteTaking} alt="" className="" />
                 </Link>
               </dd>
