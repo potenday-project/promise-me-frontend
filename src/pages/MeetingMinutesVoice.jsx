@@ -11,6 +11,7 @@ const MeetingMinutesVoice = () => {
   const [source, setSource] = useState();
   const [analyser, setAnalyser] = useState();
   const [audioUrl, setAudioUrl] = useState();
+  const [recState, setRecState] = useState(2);
 
   const convertToWav = async (blob) => {
     const audioContext = new (window.AudioContext ||
@@ -120,9 +121,11 @@ const MeetingMinutesVoice = () => {
             const wavBlob = await convertToWav(e.data);
             setAudioUrl(wavBlob);
             setOnRec(true);
+            setRecState(0);
           };
         } else {
           setOnRec(false);
+          setRecState(1);
         }
       };
     });
@@ -133,6 +136,7 @@ const MeetingMinutesVoice = () => {
       const wavBlob = await convertToWav(e.data);
       setAudioUrl(wavBlob);
       setOnRec(true);
+      setRecState(0);
     };
 
     stream.getAudioTracks().forEach(function (track) {
@@ -166,24 +170,19 @@ const MeetingMinutesVoice = () => {
 
   return (
     <div className="flex flex-col gap-2 ">
-      <button
-        className="px-10 bg-red-400"
-        onClick={onRec ? onRecAudio : offRecAudio}
-      >
-        녹음
-      </button>
-      <button className="bg-blue-300" onClick={onSubmitAudioFile}>
-        결과 확인
-      </button>
-
-      <div className="flex flex-col gap-2 "></div>
       <section className="relative flex flex-col justify-between h-full ">
         <TitleTextBox title="녹음을 시작합니다."></TitleTextBox>
         <div className="flex flex-col items-center gap-4 m-9">
           <img
-            onClick={onRec ? onRecAudio : ''}
+            onClick={onRec ? onRecAudio : offRecAudio}
             src=""
-            alt="녹음중입니다."
+            alt={
+              !recState
+                ? '녹음 완료'
+                : recState === 1
+                  ? '녹음중'
+                  : '녹음 준비중'
+            }
             className="-bg--grey100 w-[240px] h-[240px]"
           ></img>
           <p className="text-center text-title4">
@@ -197,7 +196,7 @@ const MeetingMinutesVoice = () => {
           </p>
         </div>
         <div className="fixed w-[calc(100vw-32px)] bottom-4">
-          <ButtonBox onClick={offRecAudio} disable={onRec}>
+          <ButtonBox onClick={onSubmitAudioFile} disable={recState}>
             녹음완료
           </ButtonBox>
         </div>
