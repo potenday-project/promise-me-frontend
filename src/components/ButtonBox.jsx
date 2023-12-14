@@ -3,16 +3,26 @@ import PropTypes from 'prop-types';
 
 function ButtonBox({
   type = 'button',
-  revers = false,
+  status = 'default',
   disable = false,
+  onClick,
   navigateTo = '/',
+  mt = '4',
+  mb = '4',
   ...restProps
 }) {
-  const colorClass = disable
-    ? '-bg--grey200 -text--grey400'
-    : revers
-      ? 'border-[1px] -border--primary-blue500 -text--primary-blue500'
-      : '-bg--primary-blue500 -text--system-white';
+  let colorClass;
+  if (disable) {
+    colorClass = '-bg--grey200 -text--grey400';
+  } else {
+    switch (status) {
+      case 'revers':
+        colorClass = 'border-[1px] -border--primary-blue500 -text--primary-blue500';
+        break;
+      default:
+        colorClass = '-bg--primary-blue500 -text--system-white';
+    }
+  }
 
   const navigate = useNavigate();
   const handleNavigate = () => {
@@ -25,13 +35,19 @@ function ButtonBox({
     }
   };
 
+  const handleClick = () => {
+    if (typeof onClick === 'function') {
+      onClick(); // 수정 필요: onClick 함수 호출
+    }
+  };
+
   return (
     <button
       type={type}
-      className={`p-2.5 text-title4 box-border rounded-lg w-full ${colorClass}`}
+      className={`p-2.5 text-title4 box-border rounded-lg w-full ${colorClass} mt-${mt} mb-${mb}`}
       disabled={disable}
       {...restProps}
-      onClick={handleNavigate}
+      onClick={handleClick} // 수정 필요: handleClick 함수로 연결
     ></button>
   );
 }
@@ -40,7 +56,10 @@ export default ButtonBox;
 
 ButtonBox.propTypes = {
   type: PropTypes.string,
-  revers: PropTypes.bool,
+  status : PropTypes.text,
   disable: PropTypes.bool,
+  onClick: PropTypes.func,
   navigateTo: PropTypes.string,
+  mt: PropTypes.number,
+  mb: PropTypes.number,
 };

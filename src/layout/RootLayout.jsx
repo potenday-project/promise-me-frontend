@@ -18,6 +18,7 @@ function RootLayout() {
   // TabBar 없는 페이지
   if (
     pathname === '/' ||
+    pathname === '/landing' ||
     pathname === '/signin' ||
     pathname === '/signup' ||
     pathname === '/putcategory' ||
