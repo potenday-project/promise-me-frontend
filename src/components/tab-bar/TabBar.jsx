@@ -63,9 +63,10 @@ function TabBar() {
     || pathname === '/puttopic'
     || pathname === '/putduration'
     || pathname === '/putmembers'
-    || pathname === '/meetingminutesinput'
-    || pathname === '/meetingminutestext'
+    ||pathname === '/meetingminutesdetail'
+    || pathname === '/meetingminutestext' 
     || pathname === '/meetingminutesvoice'
+    || pathname === '/roleinfo'
     ) {
       return null;
     }
