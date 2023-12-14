@@ -59,6 +59,7 @@ function PutCategory() {
       <div className="fixed w-[calc(100vw-32px)] bottom-4">
         <ButtonBox
           navigateTo = '/putduration'
+          disable={!selectedCategory}
           onClick={handleConfirmClick}
         >
           확인

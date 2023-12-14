@@ -76,6 +76,7 @@ function PutDuration() {
       <div className="fixed w-[calc(100vw-32px)] bottom-4">
         <ButtonBox
           navigateTo = '/roleinfo'
+          disable={!startDate || !endDate }
         >
           확인
         </ButtonBox>
