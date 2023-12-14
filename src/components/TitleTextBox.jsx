@@ -5,7 +5,7 @@ function TitleTextBox({ title, sub }) {
     <>
       <p
         style={{ whiteSpace: 'pre-line' }}
-        className="h-[60] mt-6 text-headline2"
+        className="h-[60px] mt-6 text-headline2  flex items-center "
       >
         {title}
       </p>

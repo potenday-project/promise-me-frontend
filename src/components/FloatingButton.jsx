@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { mic, noteTaking, editDefault } from '@/assets/icons/svg-icons';
 import { Link } from 'react-router-dom';
 
@@ -21,26 +21,33 @@ function FloatingButton() {
           className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-60"
         >
           <div className="absolute bottom-[calc(16px+60px)]  right-4 flex flex-col gap-2 items-end text-title3 -text--system-white ">
-            <dl className="flex items-center gap-4 ">
-              <dt>
-                <p>회의 녹음하기</p>
-              </dt>
-              <dd>
-                <Link to="/MeetingMinutesVoice">
+            <Link
+              to="/meetingminutesvoice"
+              onClick={() => window.scrollTo(0, 0)}
+            >
+              {' '}
+              <dl className="flex items-center gap-4 ">
+                <dt>
+                  <p>회의 녹음하기</p>
+                </dt>
+                <dd>
                   <img src={mic} alt="" className="" />
-                </Link>
-              </dd>
-            </dl>
-            <dl className="flex items-center gap-4">
-              <dt>
-                <p>회의록 직접 쓰기</p>
-              </dt>
-              <dd>
-                <Link to="/MeetingMinutesText">
+                </dd>
+              </dl>
+            </Link>
+            <Link
+              to="/meetingminutestext"
+              onClick={() => window.scrollTo(0, 0)}
+            >
+              <dl className="flex items-center gap-4">
+                <dt>
+                  <p>회의록 직접 쓰기</p>
+                </dt>
+                <dd>
                   <img src={noteTaking} alt="" className="" />
-                </Link>
-              </dd>
-            </dl>
+                </dd>
+              </dl>
+            </Link>
           </div>
         </div>
       )}
