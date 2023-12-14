@@ -15,17 +15,18 @@ function PutProjectName() {
   const handleChange = (event) => {
     setInput(event.target.value);
     validateInput(event.target.value);
-    console.log(event.target.value);
-  }
-
-  const handleClick = () => {
-    setTeamName(input);
   }
 
   //정규식 유효성 검사
   const validateInput = (value) => {
     const regex = /^[가-힣a-zA-Z0-9!@#$%^&*()\-=+{}\[\]|;:'",.<>/?~]{1,10}$/;
     setIsValid(regex.test(value));
+  }
+
+  const handleClick = () => {
+    setTeamName(input);
+    // zustand 상태 확인
+    console.log(teamName);
   }
 
   useEffect(() => {

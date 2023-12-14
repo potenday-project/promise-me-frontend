@@ -29,7 +29,15 @@ function PutCategory() {
 
   const handleConfirmClick = () => {
     setCategory(selectedCategory);
+    console.log(selectedCategory);
   }
+
+  const category = useProjectStore((state) => state.category);
+  console.log(category);
+
+  useEffect(() => {
+    console.log(category);
+  }, [category]);
 
   return (
     <>
