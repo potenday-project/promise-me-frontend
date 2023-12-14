@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 function TitleTextBox({ title, sub }) {
   return (
-    <>
+    <div>
       <p
         style={{ whiteSpace: 'pre-line' }}
         className="h-[60px] mt-6 text-headline2  flex items-center "
@@ -15,7 +15,7 @@ function TitleTextBox({ title, sub }) {
       >
         {sub}
       </p>
-    </>
+    </div>
   );
 }
 
