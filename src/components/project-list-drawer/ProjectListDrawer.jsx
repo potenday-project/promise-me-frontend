@@ -10,7 +10,7 @@ function ProjectListDrawer({ isOpen, onClose }) {
     // 프로젝트 리스트를 불러오는 비동기함수
     const fetchProjectList = async () => {
       // 데이터를 가져오는 비동기 요청
-      const response = await fetch(API_URL);
+      const response = await fetch(); // API
       const data = await response.json();
       setProjectList(data); // 데이터 설정
     };
