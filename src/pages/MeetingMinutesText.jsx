@@ -1,11 +1,13 @@
 import ButtonBox from '@/components/ButtonBox';
 import TitleTextBox from '@/components/TitleTextBox';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function MeetingMinutesText() {
   const [text, setText] = useState('');
-  const projectId = 1; // 프로젝트 식별 번호를 적절한 값으로 설정해주세요.
+  const projectId = 1;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const textareaElement = document.getElementById('dynamic-textarea');
@@ -13,7 +15,6 @@ function MeetingMinutesText() {
     textareaElement.style.height = `${textareaElement.scrollHeight + 2}px`;
   }, [text]);
 
-  // 서버로 데이터를 보내는 함수
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -21,12 +22,13 @@ function MeetingMinutesText() {
       const response = await axios.post(
         'http://localhost:8080/meeting/summary',
         {
-          meeting_content: text,
-          project_id: projectId,
+          text: text,
+          // project_id: projectId,
         }
       );
 
       console.log(response.data);
+      navigate('/meetingminuteslist');
     } catch (error) {
       console.error(error);
     }
@@ -44,7 +46,9 @@ function MeetingMinutesText() {
           onChange={(e) => setText(e.target.value)}
         />
         <div className="fixed w-[calc(100vw-32px)] bottom-4">
-          <ButtonBox type="submit">저장하기</ButtonBox>
+          <ButtonBox type="submit" disable={!text}>
+            저장하기
+          </ButtonBox>
         </div>
       </form>
     </section>
