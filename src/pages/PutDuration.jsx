@@ -2,8 +2,10 @@ import ButtonBox from "@/components/ButtonBox";
 import ButtonRound from "@/components/ButtonRound";
 import useProjectStore from "@/store/project";
 import { useState } from "react";
+// 데이트피커
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import axios from 'axios';
 
 function CustomInput({ value, onClick }) {
   return (
@@ -26,16 +28,38 @@ function PutDuration() {
   // 달력 활성화 상태 관리
   const [startCalendarActive, setStartCalendarActive] = useState(false);
   const [endCalendarActive, setEndCalendarActive] = useState(false);
+  // zustand 스토어에서 정보 가져오기
+  const { teamName, category, start, deadline } = useProjectStore();
 
   const handleStartDateChange = (date) => {
     setLocalStartDate(date);
     setStart(date);
+    console.log(date);
   };
 
   const handleEndDateChange = (date) => {
     setLocalEndDate(date);
     setDeadline(date);
+    console.log(date);
   }
+
+  // 서버에 전송할 데이터를 모아 전송하기
+  const sendDataToServer = () => {
+    const data = {
+      teamName,
+      category,
+      start: startDate,
+      deadline: endDate,
+    };
+
+    axios.post('', data) // api 주소
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  };
 
   return(
     <>
@@ -73,11 +97,15 @@ function PutDuration() {
           </ButtonRound>
         </label>
       </section>
-      <ButtonBox
-        navigateTo = '/roleinfo'
-      >
-        확인
-      </ButtonBox>
+      <div className="fixed w-[calc(100vw-32px)] bottom-4">
+        <ButtonBox
+          navigateTo = '/roleinfo'
+          disable={!startDate || !endDate }
+          onClick={sendDataToServer}
+        >
+          확인
+        </ButtonBox>
+      </div>
     </>
   )
 }

@@ -1,12 +1,12 @@
+import { useState, useEffect } from "react";
 import ButtonBox from "@/components/ButtonBox";
 import PlaceholderLine from "@/components/PlaceHolderLine";
-import { useState } from "react";
 import useProjectStore from "@/store/project";
-import { useEffect } from "react";
 
 function PutProjectName() {
   // 사용자 입력을 추적하는 로컬 상태
   const [input, setInput] = useState('');
+  const [isValid, setIsValid] = useState(true);
 
   const setTeamName = useProjectStore(state => state.setTeamName);
   const teamName = useProjectStore((state) => state.teamName)
@@ -14,11 +14,19 @@ function PutProjectName() {
   // 사용자의 입력을 로컬 상태에 저장하는 핸들러 함수
   const handleChange = (event) => {
     setInput(event.target.value);
-    console.log(event.target.value);
+    validateInput(event.target.value);
+  }
+
+  //정규식 유효성 검사
+  const validateInput = (value) => {
+    const regex = /^[가-힣a-zA-Z0-9!@#$%^&*()\-=+{}\[\]|;:'",.<>/?~]{1,10}$/;
+    setIsValid(regex.test(value));
   }
 
   const handleClick = () => {
     setTeamName(input);
+    // zustand 상태 확인
+    console.log(teamName);
   }
 
   useEffect(() => {
@@ -38,15 +46,19 @@ function PutProjectName() {
         type="text"
         value={input}
         onChange={handleChange}
+        isValid={isValid}
+        errorMessage={isValid ? "" : "팀 이름은 1자 이상 10자 이하여야 합니다."}
       />
-      <ButtonBox
-        type="button"
-        navigateTo="/putcategory"
-        disable={!input}
-        onClick={handleClick}
-        >
-          확인
-      </ButtonBox>
+      <div className="fixed w-[calc(100vw-32px)] bottom-4">
+        <ButtonBox
+          type="button"
+          navigateTo="/putcategory"
+          disable={!isValid || !input}
+          onClick={handleClick}
+          >
+            확인
+        </ButtonBox>
+      </div>
     </>
   )
 }

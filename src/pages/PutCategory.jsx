@@ -29,7 +29,15 @@ function PutCategory() {
 
   const handleConfirmClick = () => {
     setCategory(selectedCategory);
+    console.log(selectedCategory);
   }
+
+  const category = useProjectStore((state) => state.category);
+  console.log(category);
+
+  useEffect(() => {
+    console.log(category);
+  }, [category]);
 
   return (
     <>
@@ -56,12 +64,15 @@ function PutCategory() {
           </li>
         ))}
       </ul>
-      <ButtonBox
-        navigateTo = '/putduration'
-        onClick={handleConfirmClick}
-      >
-        확인
-      </ButtonBox>
+      <div className="fixed w-[calc(100vw-32px)] bottom-4">
+        <ButtonBox
+          navigateTo = '/putduration'
+          disable={!selectedCategory}
+          onClick={handleConfirmClick}
+        >
+          확인
+        </ButtonBox>
+      </div>
     </>
   )
 }
