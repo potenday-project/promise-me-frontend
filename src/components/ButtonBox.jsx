@@ -5,6 +5,7 @@ function ButtonBox({
   type = 'button',
   status = 'default',
   disable = false,
+  onClick,
   navigateTo = '/',
   mt = '4',
   mb = '4',
@@ -16,7 +17,8 @@ function ButtonBox({
   } else {
     switch (status) {
       case 'revers':
-        colorClass = 'border-[1px] -border--primary-blue500 -text--primary-blue500';
+        colorClass =
+          'border-[1px] -border--primary-blue500 -text--primary-blue500';
         break;
       default:
         colorClass = '-bg--primary-blue500 -text--system-white';
@@ -34,13 +36,22 @@ function ButtonBox({
     }
   };
 
+  const handleClick = () => {
+    if (onClick) {
+      onClick();
+      handleNavigate();
+    } else {
+      handleNavigate();
+    }
+  };
+
   return (
     <button
       type={type}
       className={`p-2.5 text-title4 box-border rounded-lg w-full ${colorClass} mt-${mt} mb-${mb}`}
       disabled={disable}
       {...restProps}
-      onClick={handleNavigate}
+      onClick={handleClick}
     ></button>
   );
 }
@@ -49,8 +60,9 @@ export default ButtonBox;
 
 ButtonBox.propTypes = {
   type: PropTypes.string,
-  status : PropTypes.text,
+  status: PropTypes.string,
   disable: PropTypes.bool,
+  onClick: PropTypes.func,
   navigateTo: PropTypes.string,
   mt: PropTypes.number,
   mb: PropTypes.number,
