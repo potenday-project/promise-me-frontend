@@ -73,11 +73,13 @@ function PutDuration() {
           </ButtonRound>
         </label>
       </section>
-      <ButtonBox
-        navigateTo = '/roleinfo'
-      >
-        확인
-      </ButtonBox>
+      <div className="fixed w-[calc(100vw-32px)] bottom-4">
+        <ButtonBox
+          navigateTo = '/roleinfo'
+        >
+          확인
+        </ButtonBox>
+      </div>
     </>
   )
 }

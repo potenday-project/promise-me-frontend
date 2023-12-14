@@ -56,12 +56,14 @@ function PutCategory() {
           </li>
         ))}
       </ul>
-      <ButtonBox
-        navigateTo = '/putduration'
-        onClick={handleConfirmClick}
-      >
-        확인
-      </ButtonBox>
+      <div className="fixed w-[calc(100vw-32px)] bottom-4">
+        <ButtonBox
+          navigateTo = '/putduration'
+          onClick={handleConfirmClick}
+        >
+          확인
+        </ButtonBox>
+      </div>
     </>
   )
 }

@@ -48,14 +48,16 @@ function PutProjectName() {
         isValid={isValid}
         errorMessage={isValid ? "" : "팀 이름은 1자 이상 10자 이하여야 합니다."}
       />
-      <ButtonBox
-        type="button"
-        navigateTo="/putcategory"
-        disable={!isValid || !input}
-        onClick={handleClick}
-        >
-          확인
-      </ButtonBox>
+      <div className="fixed w-[calc(100vw-32px)] bottom-4">
+        <ButtonBox
+          type="button"
+          navigateTo="/putcategory"
+          disable={!isValid || !input}
+          onClick={handleClick}
+          >
+            확인
+        </ButtonBox>
+      </div>
     </>
   )
 }
