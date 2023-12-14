@@ -181,6 +181,7 @@ const MeetingMinutesVoice = () => {
         <TitleTextBox title="녹음을 시작합니다."></TitleTextBox>
         <div className="flex flex-col items-center gap-4 m-9">
           <img
+            onClick={onRec ? onRecAudio : ''}
             src=""
             alt="녹음중입니다."
             className="-bg--grey100 w-[240px] h-[240px]"
