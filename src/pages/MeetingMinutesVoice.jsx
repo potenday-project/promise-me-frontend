@@ -64,9 +64,6 @@ const MeetingMinutesVoice = () => {
   };
 
   const onSubmitAudioFile = useCallback(() => {
-    // if (audioUrl) {
-    //   console.log('파일 URL:', URL.createObjectURL(audioUrl));
-    // }
     const sound = new File([audioUrl], 'soundBlob.mp3', {
       lastModified: new Date().getTime(),
       type: 'audio/mpeg',
