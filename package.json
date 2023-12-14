@@ -12,6 +12,7 @@
   "dependencies": {
     "@tanstack/react-query": "^5.12.2",
     "@tanstack/react-query-devtools": "^5.13.3",
+    "axios": "^1.6.2",
     "immer": "^10.0.3",
     "prop-types": "^15.8.1",
     "ramda": "0.29.0",
