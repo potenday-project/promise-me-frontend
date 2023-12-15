@@ -25,7 +25,10 @@ const router = createBrowserRouter(
       <Route path="/" element={<RootLayout />}>
         <Route index element={<Landing />} />
         <Route path="home" element={<Home />} />
-        <Route path="meetingminutesdetail" element={<MeetingMinutesDetail />} />
+        <Route
+          path="meetingminutesdetail/:meetingId"
+          element={<MeetingMinutesDetail />}
+        />
         <Route path="meetingminuteslist" element={<MeetingMinutesList />} />
         <Route path="meetingminutestext" element={<MeetingMinutesText />} />
         <Route path="meetingminutesvoice" element={<MeetingMinutesVoice />} />
