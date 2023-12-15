@@ -1,22 +1,22 @@
 import ButtonMeetingMinutes from '@/components/ButtonMeetingMinutes';
-import ButtonRound from '@/components/ButtonRound';
 import TitleTextBox from '@/components/TitleTextBox';
 import axios from 'axios';
-import { useState } from 'react';
-import { useEffect } from 'react';
-const user = { name: '새싹전사', email: 'saessak@gmail.com' };
+import { useState, useEffect } from 'react';
+
+const user = { id: 1, name: '새싹전사', email: 'saessak@gmail.com' };
+
 function Profile() {
-  const [meetingMinutes, setMeetingMinutes] = useState([]);
+  const [projects, setProjects] = useState([]);
 
   useEffect(() => {
     axios
-      .get('http://localhost:8080/meeting/', {
+      .get('http://localhost:8080/project', {
         params: {
-          projectId: 1,
+          user_id: user.id,
         },
       })
       .then((response) => {
-        setMeetingMinutes(response.data);
+        setProjects(response.data.project_list);
       })
       .catch((error) => {
         console.error('데이터를 가져오는 중 오류가 발생했습니다:', error);
@@ -37,16 +37,15 @@ function Profile() {
         </div>
       </section>
       <section className="pt-9">
-        <TitleTextBox title={`${user.name} 님의\n프로젝트 모아보기`} />
+        <TitleTextBox title={`${user.name} 님의 프로젝트 모아보기`} />
         <div className="flex flex-col gap-4 mt-8">
-          {meetingMinutes.map((data, index) => (
+          {projects.map((project, index) => (
             <ButtonMeetingMinutes
               key={index}
-              title={data.meetingContent}
-              datetime={data.meetingDate}
-              summary={data.summary}
+              title={project.project_name}
+              role={project.role}
               mypage={true}
-              id={data.meetingId}
+              id={project.project_id}
             />
           ))}
         </div>
