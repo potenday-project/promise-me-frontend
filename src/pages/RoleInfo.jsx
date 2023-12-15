@@ -47,7 +47,7 @@ function RoleInfo() {
             ))
           : 'AI가 열심히 작성중이에요'}
        </section>
-      <div className="fixed w-[calc(100vw-32px)] bottom-4">
+      <div className="fixed w-[calc(100vw-32px)] bottom-0 bg-white">
         <ButtonBox navigateTo="/putmembers">
           팀원 초대 하러 가기
         </ButtonBox>
