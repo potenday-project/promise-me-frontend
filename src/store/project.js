@@ -12,7 +12,12 @@ const useProjectStore = create((set) => {
     setCategory: (category) => set(() => ({ category: category })),
     setStart: (start) => set(() => ({ start: start })),
     setDeadline: (deadline) => set(() => ({ deadline: deadline })),
-    setMembers: (members) => set(() => ({ members: members })),
+    setMembers: (members) => {
+      const memberList = Object.entries(members).flatMap(([role, users]) =>
+        users.map(user => ({ userId: String(user.userId), role }))
+      );
+      set({ members: memberList });
+    },
   };
 });
 
