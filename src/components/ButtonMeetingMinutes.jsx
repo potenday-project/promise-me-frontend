@@ -21,12 +21,13 @@ function ButtonMeetingMinutes({
     >
       <div className="box-border border-[1px] rounded-lg -bg--primary-blue50 -border--grey300  p-4 flex flex-row justify-between">
         <div className="flex flex-col gap-1 ">
-          <p className="inline-flex items-center text-headline4">
-            <span>{title}</span>
+          <div className="flex flex-row">
+            <p className="overflow-hidden center text-headline4 text-ellipsis line-clamp-1">
+              <span>{title}</span>
+            </p>
             {mypage ? '' : <img src={chevronRight} />}
-          </p>
-
-          <time className="text-title5 -text--grey700">{formattedDate}</time>
+          </div>
+          <time className="text-title5 -text--grey700 ">{formattedDate}</time>
           <p className="pt-1 overflow-hidden break-words text-body4 text-ellipsis line-clamp-2">
             {summary}
           </p>
