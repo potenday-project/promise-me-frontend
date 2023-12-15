@@ -13,7 +13,6 @@ function Header() {
   const [isDrawerOpened, setDrawerOpened] = useState(false);
 
   useEffect(() => {
-
     // 실행마다 title 값 초기화
     setTitle('');
 
@@ -28,7 +27,7 @@ function Header() {
       setTitle('내 정보');
     } else if (
       pathname === '/meetingminuteslist' ||
-      pathname === '/meetingminutesdetail' ||
+      pathname.startsWith('/meetingminutesdetail/') ||
       pathname === '/meetingminutestext' ||
       pathname === '/meetingminutesvoice'
     ) {
@@ -43,7 +42,7 @@ function Header() {
     ) {
       setTitle('프로젝트 만들기');
     }
-  }, [pathname]);  
+  }, [pathname]);
 
   // 헤더 필요 없는 페이지
   if (pathname === '/' || pathname === '/signin') {
@@ -61,8 +60,8 @@ function Header() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 w-full m-auto z-[1000] -bg--system-white">
-        <div className="flex justify-between items-center w-full">
+      <header className="fixed top-0 left-0 w-full m-auto z-[1000] -bg--system-white border-b-[1px] -border--grey300">
+        <div className="flex items-center justify-between w-full">
           <button
             className="w-12 h-12"
             onClick={() => {
