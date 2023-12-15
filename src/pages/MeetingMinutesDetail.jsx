@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import TextBox from '@/components/TextBox';
 import TitleTextBox from '@/components/TitleTextBox';
+const userName = '쌔삭전사';
 
 function MeetingMinutesDetail() {
   const [meetingMinutes, setMeetingMinutes] = useState([]);
@@ -46,7 +47,7 @@ function MeetingMinutesDetail() {
         <>
           <TitleTextBox
             title={formattedDate}
-            sub={`홍길동님을 위해 AI가 회의를 요약했어요`}
+            sub={`${userName}님을 위해 AI가 회의를 요약했어요`}
           />
           <TextBox summary={'회의 요약'} content={meeting.summary} />
           <TextBox summary={'회의 내용'} content={meeting.meetingContent} />
