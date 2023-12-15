@@ -12,10 +12,7 @@ function PutMembers() {
     '프로젝트 매니저',
     '백엔드 개발자',
     '프론트엔드 개발자',
-    'UI/UX 디자이너',
-    '데이터베이스 관리자',
-    '테스트/QA 엔지니어',
-    '시스템 관리자'
+    'UI/UX 디자이너'
   ];
   const [roles, setRoles] = useState(exampleData);
   const [email, setEmail] = useState('');
@@ -23,11 +20,11 @@ function PutMembers() {
   const [isValid, setIsValid] = useState(null);
 
   useEffect(() => {
+    // 모든 직군 카운트 초기값 0
     const initialCounts = roles.reduce((obj, role) => ({
       ...obj,
       [role]: 0,
     }), {});
-
     setCounts(initialCounts);
   }, [roles]);
 
@@ -54,14 +51,10 @@ function PutMembers() {
   };
 
   const handleButtonClick = (role) => {
-    if (isValidEmail(email)) {
-      setCounts({
-        ...counts,
-        [role]: counts[role] + 1,
-      });
-    } else {
-      alert('유효한 이메일을 입력해주세요.')
-    }
+    setCounts({
+      ...counts,
+      [role]: counts[role] + 1,
+    });
   };
 
   return(
@@ -84,7 +77,7 @@ function PutMembers() {
           <li key={index}>
             <ButtonRound
               status="" // 이메일이 입력 완료 되면 clicked 로 변경
-              onClick={handleButtonClick} // 클릭하면 카운트, 아래에 이메일 입력
+              onClick={() => handleButtonClick(role)} // 클릭하면 카운트, 아래에 이메일 입력
             >
               {role}
             </ButtonRound>
@@ -93,13 +86,17 @@ function PutMembers() {
       </ul>
       <div className="bg-blue-50 border -border--grey300 rounded-lg p-4">
         {roles && roles.map((role, index) => (
-          <p key={index} className="text-title4">{role} {counts[role]}명</p>
+          <div key={index}>
+          <p className="text-title4">{role} {counts[role]}명</p>
+          </div>
         ))}
         <PlaceholderLine></PlaceholderLine>
       </div>
       <div className="fixed w-[calc(100vw-32px)] bottom-4">
         <ButtonBox
           navigateTo = '/projectInfo'
+          // 이메일 형식 유효성 검사 통과 시 활성화되어 있지만, 나중에 팀원을 최소 1명 선택해야 활성화되게 수정하기
+          disable={!isValid}
         >
           확인
         </ButtonBox>
