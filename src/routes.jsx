@@ -14,7 +14,6 @@ import PutCategory from './pages/PutCategory';
 import PutDuration from './pages/PutDuration';
 import PutMembers from './pages/PutMembers';
 import PutProjectName from './pages/PutProjectName';
-import PutTopic from './pages/PutTopic';
 import RoleInfo from './pages/RoleInfo';
 import Signin from './pages/Signin';
 import SignUp from './pages/SignUp';
@@ -39,7 +38,6 @@ const router = createBrowserRouter(
         <Route path="putduration" element={<PutDuration />} />
         <Route path="putmembers" element={<PutMembers />} />
         <Route path="putprojectname" element={<PutProjectName />} />
-        <Route path="puttopic" element={<PutTopic />} />
         <Route path="roleinfo" element={<RoleInfo />} />
         <Route path="signin" element={<Signin />} />
         <Route path="signup" element={<SignUp />} />
