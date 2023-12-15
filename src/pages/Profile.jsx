@@ -35,13 +35,14 @@ function Profile() {
       </section>
       <section>
         <TitleTextBox title={`${user.name} 님의\n프로젝트 모아보기`} />
-        <div className="grid grid-cols-2 gap-4 mt-6">
+        <div className="flex flex-col gap-4 mt-6">
           {meetingMinutes.map((data, index) => (
             <ButtonMeetingMinutes
               key={index}
               title={data.meetingContent}
               datetime={data.meetingDate}
               summary={data.summary}
+              mypage={true}
               id={data.meetingId}
             />
           ))}
