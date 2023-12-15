@@ -23,19 +23,22 @@ function Profile() {
       });
   }, []);
 
+  const colorClass =
+    'px-4 py-1 text-body4 box-border rounded-3xl w-full border-[1px] -border--grey300 -text--system-black -bg--grey100';
+
   return (
     <>
       <section>
         <TitleTextBox title={user.name} />
         <p>{user.email}</p>
-        <div>
-          <ButtonRound>내 정보 수정하기</ButtonRound>
-          <ButtonRound>로그아웃하기</ButtonRound>
+        <div className="flex justify-between w-full gap-[18px] mt-5 ">
+          <button className={colorClass}>내 정보 수정하기</button>
+          <button className={colorClass}>로그아웃하기</button>
         </div>
       </section>
-      <section>
+      <section className="pt-9">
         <TitleTextBox title={`${user.name} 님의\n프로젝트 모아보기`} />
-        <div className="flex flex-col gap-4 mt-6">
+        <div className="flex flex-col gap-4 mt-8">
           {meetingMinutes.map((data, index) => (
             <ButtonMeetingMinutes
               key={index}
