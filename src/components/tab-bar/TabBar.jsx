@@ -6,7 +6,7 @@ import {
   todoBlue,
   todoGrey,
   profileBlue,
-  profileGrey
+  profileGrey,
 } from '@/assets/icons/svg-icons.js';
 import styles from './TabBar.module.css';
 import { useEffect, useState } from 'react';
@@ -28,48 +28,51 @@ function TabBar() {
   const [profileText, setProfileText] = useState('');
 
   // 해당 페이지에 따라 아이콘, 텍스트 색깔 변경
-  useEffect( () => {
-      setHomeIcon(pathname === '/home' ? homeBlue : homeGrey);
-      setHomeText(pathname === '/home' ? '--system-black' : '-text--grey600');
-    }, [pathname]
-  );
+  useEffect(() => {
+    setHomeIcon(pathname === '/home' ? homeBlue : homeGrey);
+    setHomeText(pathname === '/home' ? '--system-black' : '-text--grey600');
+  }, [pathname]);
 
-  useEffect( () => {
-      setMeetingIcon(pathname === '/meetingminuteslist' ? meetingBlue : meetingGrey);
-      setMeetingText(pathname === '/meetingminuteslist' ? '--system-black' : '-text--grey600');
-    }, [pathname]
-  );
+  useEffect(() => {
+    setMeetingIcon(
+      pathname === '/meetingminuteslist' ? meetingBlue : meetingGrey
+    );
+    setMeetingText(
+      pathname === '/meetingminuteslist' ? '--system-black' : '-text--grey600'
+    );
+  }, [pathname]);
 
-  useEffect( () => {
-      setTodoIcon(pathname === '/todolist' ? todoBlue : todoGrey);
-      setTodoText(pathname === '/todolist' ? '--system-black' : '-text--grey600');
-    }, [pathname]
-  );
+  useEffect(() => {
+    setTodoIcon(pathname === '/todolist' ? todoBlue : todoGrey);
+    setTodoText(pathname === '/todolist' ? '--system-black' : '-text--grey600');
+  }, [pathname]);
 
-  useEffect( () => {
-      setProfileIcon(pathname === '/profile' ? profileBlue : profileGrey);
-      setProfileText(pathname === '/profile' ? '--system-black' : '-text--grey600');
-    }, [pathname]
-  );
+  useEffect(() => {
+    setProfileIcon(pathname === '/profile' ? profileBlue : profileGrey);
+    setProfileText(
+      pathname === '/profile' ? '--system-black' : '-text--grey600'
+    );
+  }, [pathname]);
 
   // 탭바 불필요한 페이지에서 제거하기
-  if (pathname === '/'
-    || pathname === '/landing'
-    || pathname === '/signin'
-    || pathname === '/signup'
-    || pathname === '/projectinfo'
-    || pathname === '/putprojectname'
-    || pathname === '/putcategory'
-    || pathname === '/puttopic'
-    || pathname === '/putduration'
-    || pathname === '/putmembers'
-    ||pathname === '/meetingminutesdetail'
-    || pathname === '/meetingminutestext' 
-    || pathname === '/meetingminutesvoice'
-    || pathname === '/roleinfo'
-    ) {
-      return null;
-    }
+  if (
+    pathname === '/' ||
+    pathname === '/landing' ||
+    pathname === '/signin' ||
+    pathname === '/signup' ||
+    pathname === '/projectinfo' ||
+    pathname === '/putprojectname' ||
+    pathname === '/putcategory' ||
+    pathname === '/puttopic' ||
+    pathname === '/putduration' ||
+    pathname === '/putmembers' ||
+    pathname.startsWith('/meetingminutesdetail/') ||
+    pathname === '/meetingminutestext' ||
+    pathname === '/meetingminutesvoice' ||
+    pathname === '/roleinfo'
+  ) {
+    return null;
+  }
 
   return (
     <nav className={styles.nav}>
