@@ -19,45 +19,63 @@ import axios from 'axios';
 function Home() {
   const { userId, projectId, setProjectId } = useContext(UserContext);
   // 나중에 불러온 데이터로 바꿔주기
-  let members = ['기획자', '디자이너', '프론트엔드 개발자', '백엔드 개발자'];
+  let roles = [];
   const [isProjectData, setIsProjectData] = useState([]);
-  const [isTodoArray, setIsTodoArray] = useState([]);
-  const [isProgress, setIsProgress] = useState(null);
-  const [isDday, setIsDday] = useState(null);
+  const [data, setData] = useState({
+    projectData: null,
+    dday: null,
+    progress: null,
+    todoAll: null,
+  });
+  const [isLoading, setIsLoading] = useState(true);
   const [isSelectedButton, setIsSelectedButton] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [projectDataRes, dDayRes, progressRes] = await Promise.all([
-          axios.get('http://43.201.85.197/project/', {
-            params: {
-              userId: userId,
-            },
-          }),
-          axios.get('http://43.201.85.197/project/dday', {
-            params: {
-              userId: userId,
-            },
-          }),
-          axios.get('http://43.201.85.197/project/progress', {
-            params: {
-              userId: userId,
-            },
-          }),
-        ]);
+    axios
+      .all([
+        axios.get('http://43.201.85.197/project/', {
+          params: { userId: userId },
+        }),
+        axios.get('http://43.201.85.197/project/dday', {
+          params: { projectId: projectId },
+        }),
+        axios.get('http://43.201.85.197/project/progress', {
+          params: { projectId: projectId },
+        }),
+        axios.get('http://43.201.85.197/calendar/todoAll', {
+          params: { projectId: projectId, todoDate: '2023-12-22' },
+        }),
+      ])
+      .then(
+        axios.spread((projectRes, ddayRes, progressRes, todoAllRes) => {
+          setData({
+            projectData: projectRes.data,
+            dday: ddayRes.data.Dday,
+            progress: progressRes.data.progress,
+            todoAll: todoAllRes.data,
+          });
+          setIsLoading(false);
+        })
+      )
+      .catch((error) => {
+        console.error('오류', error);
+        setIsLoading(false);
+      });
+  }, []);
 
-        setIsProjectData(projectDataRes.data);
-        setIsDday(dDayRes.data);
-        setIsProgress(progressRes.data);
-        console.log(projectDataRes, dDayRes, progressRes);
-      } catch (error) {
-        console.error('데이터를 가져오는 중 오류가 발생했습니다:', error);
-      }
-    };
+  if (isLoading) {
+    // 데이터를 불러오는 동안 실행할 코드
+  } else {
+    roles = data.todoAll.reduce((unique, item) => {
+      return unique.includes(item.role) ? unique : [...unique, item.role];
+    }, []);
 
-    fetchData();
-  }, [projectId]);
+    console.log(
+      data.todoAll.map((data) => {
+        data.role == '기획자' ? data : '';
+      })
+    );
+  }
 
   // 버튼 클릭 상태 관리
 
@@ -80,7 +98,7 @@ function Home() {
         >
           <SwiperSlide>
             <img src={chevronRight} className="swiper-button-next" />
-            <ProgressAll />
+            <ProgressAll percent={data.progress} dday={data.dday} />
           </SwiperSlide>
           <SwiperSlide>
             <MyCalendar />
@@ -95,41 +113,43 @@ function Home() {
           className="w-full my-3"
           spaceBetween={4}
         >
-          {members.map((member, index) => (
-            <SwiperSlide style={{ width: 'auto' }} key={index}>
-              <ButtonRound
-                status={isSelectedButton === member ? 'selected' : 'default'}
-                onClick={() => {
-                  setIsSelectedButton(member);
-                  console.log(isSelectedButton);
-                }}
-              >
-                {member}
-              </ButtonRound>
-            </SwiperSlide>
-          ))}
+          {!isLoading &&
+            roles.map((role, index) => (
+              <SwiperSlide style={{ width: 'auto' }} key={index}>
+                <ButtonRound
+                  status={isSelectedButton === role ? 'selected' : 'default'}
+                  onClick={() => {
+                    setIsSelectedButton(role);
+                    console.log(isSelectedButton);
+                  }}
+                >
+                  {role}
+                </ButtonRound>
+              </SwiperSlide>
+            ))}
         </Swiper>
         <p className="pr-4 mb-4 text-headline4">
           AI가 추천해준 큰 일정...이것도 서버에서 받아와야함
         </p>
         <ul className="flex flex-col gap-6">
-          {isTodoArray.map((person, index) => {
-            if (isSelectedButton === person.role) {
-              return (
-                <li key={index} className="flex flex-col gap-2">
-                  <p>{person.name}</p>
-                  {person.todo.map((todo, todoIndex) => (
-                    <TodoItem
-                      key={todoIndex}
-                      text={todo.text}
-                      isChecked={todo.isChecked}
-                    />
-                  ))}
-                </li>
-              );
-            }
-            return null;
-          })}
+          {!isLoading &&
+            data.todoAll.map((allData, index) => {
+              if (isSelectedButton === allData.role) {
+                return (
+                  <li key={index} className="flex flex-col gap-2">
+                    <p>{allData.members}</p>
+                    {allData.map((todo, todoIndex) => (
+                      <TodoItem
+                        key={todoIndex}
+                        text={todo.text}
+                        isChecked={todo.isChecked}
+                      />
+                    ))}
+                  </li>
+                );
+              }
+              return null;
+            })}
         </ul>
       </section>
     </>
