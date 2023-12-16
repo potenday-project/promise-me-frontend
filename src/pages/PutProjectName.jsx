@@ -9,7 +9,7 @@ function PutProjectName() {
   const [isValid, setIsValid] = useState(true);
 
   const setTeamName = useProjectStore(state => state.setTeamName);
-  const teamName = useProjectStore((state) => state.teamName)
+  const teamName = useProjectStore((state) => state.teamName);
 
   // 사용자의 입력을 로컬 상태에 저장하는 핸들러 함수
   const handleChange = (event) => {
