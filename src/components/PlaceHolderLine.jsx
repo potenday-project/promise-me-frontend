@@ -47,7 +47,7 @@ function PlaceholderLine({
 
   // 위의 errorClass 와 borderClass 를 합친 코드
   const borderClass = readonly // 읽기 전용 상태일 때
-    ? 'border-b-2 -border--grey500' // 회색 테두리 적용
+    ? 'border-b-2 -border--grey500 bg-transparent' // 회색 테두리 적용
     : hasValue && !isValid // 값이 있고 유효하지 않을 때
       ? 'border-b-2 -border--system-danger focus:-border--system-danger -caret--system-danger' // 오류 표시 적용
       : 'border-b-2 -border--grey500 focus:-border--primary-blue500 -caret--primary-blue500'; // 기본 테두리 적용
