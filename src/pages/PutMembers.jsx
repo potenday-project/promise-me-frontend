@@ -43,7 +43,8 @@ function PutMembers() {
         if(data) {
           setCounts({
             ...counts,
-            [role]: counts[role] ? [...counts[role], email] : [email], // 직군별로 이메일 그룹화
+            [role]: counts[role] ? [...counts[role], email] : [email],
+            // 직군별로 이메일 그룹화
           });
           // zustand 스토어에 저장
           useProjectStore.getState().setMembers(counts);
@@ -51,10 +52,10 @@ function PutMembers() {
         } else {
           alert(data.message);
         }
-        setEmail('') //이메일 초기화
       })
       .catch(error => {
         alert('가입된 사용자가 아닙니다.')
+        setIsValid(false);
         console.error('Error verifying email:',error) //오류처리
       })
     }
@@ -62,24 +63,29 @@ function PutMembers() {
 
   // 확인 버튼 누르면 zustand 의 정보를 꺼내 서버로 전달
   const handleConfirmClick = () => {
-    const { name, category, start, deadline, members } = useProjectStore.getState();
+    const { name, category, start, deadline } = useProjectStore.getState();
   
     // 프로젝트 생성
     const projectCreatePromise = axios.post('http://43.201.85.197/project/create', {
       name: name,
       category: category,
-      memberList: members,
+      memberList: Object.entries(counts).flatMap(([role, userIds]) =>
+        userIds.map(userId => ({ userId: String(userId), role }))
+      ),
       start: start,
       deadline: deadline,
-    });
+    }).then(response => response.data.projectId);
   
     // 프로젝트 일정 추천
-    const projectRecommendPromise = axios.post('http://43.201.85.197/project/recommend/schedule', {
-      category: category,
-      members,
-      start: start,
-      deadline: deadline,
-    });
+    const projectRecommendPromise = projectCreatePromise.then(projectId =>
+      axios.post('http://43.201.85.197/project/recommend/schedule', {
+        category: category,
+        members: Object.keys(counts),
+        start: start,
+        deadline: deadline,
+        projectId,
+      })
+    );
   
     Promise.all([projectCreatePromise, projectRecommendPromise])
       .then(([createResponse, recommendResponse]) => {
@@ -122,7 +128,7 @@ function PutMembers() {
         isValid={isValid}
       >
       </PlaceholderRound>
-      <ul className="flex flex-row flex-wrap gap-2 mt-4 mb-8">
+      <ul className="flex flex-row flex-wrap gap-2 mt-4 mb-6">
         {
           roles
           ? (roles.length > 0
@@ -140,7 +146,7 @@ function PutMembers() {
           : '데이터를 불러오는 중입니다'
         }
         </ul>
-      <div className="bg-blue-50 border -border--grey300 rounded-lg p-4 flex flex-col gap-6">
+      <div className="bg-blue-50 border -border--grey300 rounded-lg p-4 mb-20 flex flex-col gap-6">
         {Object.entries(counts).map(([role, emails], index) => (
           <div key={index}>
             <p className="text-title4">
@@ -159,7 +165,7 @@ function PutMembers() {
           </div>
         ))}
       </div>
-      <div className="fixed w-[calc(100vw-32px)] bottom-4">
+      <div className="fixed w-[calc(100vw-32px)] bottom-0 bg-white">
         <ButtonBox
           disable={isDisabled}
           onClick={handleConfirmClick}
