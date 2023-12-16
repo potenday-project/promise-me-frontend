@@ -12,11 +12,12 @@ function ProjectListDrawer({ isOpen, onClose }) {
       try {
         const response = await axios.get('http://43.201.85.197/project/', {
           params: {
-            userId: 1
+            userId: 2
           }
         });
-        const projectNames = response.data.map(project => project.project_name);
+        const projectNames = response.data.map(project => project.name);
         setProjectList(projectNames);
+        console.log(projectNames);
       } catch (error) {
         console.error('Error fetching data: ', error);
       }
@@ -38,7 +39,7 @@ function ProjectListDrawer({ isOpen, onClose }) {
         </button>
         <ul className='flex flex-col gap-4'>
           {projectList.map((title, index) => (
-            <ButtonBox key={index} mt={0} mb={0}>
+            <ButtonBox key={index} mt={0} mb={0} navigateTo='/home'>
               {title}
             </ButtonBox>
           ))}

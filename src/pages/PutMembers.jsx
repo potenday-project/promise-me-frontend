@@ -4,34 +4,22 @@ import PlaceholderLine from "@/components/PlaceHolderLine";
 import PlaceholderRound from "@/components/PlaceHolderRound";
 import useProjectStore from "@/store/project";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
 function PutMembers() {
 
   const navigate = useNavigate();
 
-  // 작업을 위한 예시 데이터, 나중에 지우기
-  // const exampleData = [
-  //   '프로젝트 매니저',
-  //   '백엔드 개발자',
-  //   '프론트엔드 개발자',
-  //   'UI/UX 디자이너'
-  // ];
-  const [roles, setRoles] = useState([]);
   const [email, setEmail] = useState('');
   const [counts, setCounts] = useState({});
   const [isValid, setIsValid] = useState(null);
   const [isDisabled, setIsDisabled] = useState(true);
 
-  useEffect(() => {
-    axios.get('http://43.201.85.197/recemmend/member')
-      .then(response => {
-        const roles = response.data.map(item => item.member_list.map(member => member.role))
-          .reduce((acc, cur) => acc.concat(cur), []);
-        setRoles(roles);
-      })
-  }, []);
+  const memberInfo = useProjectStore(state => state.memberInfo)
+  const roles = Object.keys(memberInfo);
+
+  console.log(roles);
 
   // 이메일 유효성 검사
   const isValidEmail = (email) => {
@@ -53,7 +41,7 @@ function PutMembers() {
   const handleButtonClick = (role) => {
     if(isValid) {
       axios
-      .post('http://43.201.85.197/users/check', { email })// {email} 도 바꿔야할 수도 있음
+      .post('http://43.201.85.197/users/check', { email : email })// {email} 도 바꿔야할 수도 있음
       .then(response => {
         const { data } = response;
         if(data.user_id) {

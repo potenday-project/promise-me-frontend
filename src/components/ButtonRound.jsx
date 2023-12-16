@@ -7,6 +7,7 @@ function ButtonRound({
   isValid,
   errorMessage,
   onClick,
+  children,
   ...restProps
 }) {
   let colorClass;
@@ -33,7 +34,9 @@ function ButtonRound({
       className={`px-4 py-1 text-body4 box-border rounded-3xl ${colorClass}`}
       {...restProps}
       onClick={onClick}
-    />
+    >
+      {children}
+    </button>
   );
 
   const renderErrorMessage = hasValue && (
