@@ -70,10 +70,10 @@ function Home() {
       return unique.includes(item.role) ? unique : [...unique, item.role];
     }, []);
 
+    console.log(roles);
+    console.log(data.todoAll);
     console.log(
-      data.todoAll.map((data) => {
-        data.role == '기획자' ? data : '';
-      })
+      data.todoAll.filter((allData) => allData.role === isSelectedButton)
     );
   }
 
@@ -133,6 +133,19 @@ function Home() {
         </p>
         <ul className="flex flex-col gap-6">
           {!isLoading &&
+            data.todoAll
+              .filter((allData) => allData.role === isSelectedButton)
+              .map((filteredData, index) => {
+                return (
+                  <div key={index}>
+                    <h3>{filteredData.recommendation}</h3>{' '}
+                    {/* 예: 이름을 출력 */}
+                  </div>
+                );
+              })}
+
+          {/*
+           {!isLoading &&
             data.todoAll.map((allData, index) => {
               if (isSelectedButton === allData.role) {
                 return (
@@ -149,7 +162,7 @@ function Home() {
                 );
               }
               return null;
-            })}
+            })} */}
         </ul>
       </section>
     </>
