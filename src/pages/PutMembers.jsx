@@ -17,6 +17,7 @@ function PutMembers() {
   const [isDisabled, setIsDisabled] = useState(true);
 
   const roles = useProjectStore(state => state.memberInfo);
+  const setProjectSchedule = useProjectStore(state => state.setProjectSchedule);
 
   // 이메일 유효성 검사
   const isValidEmail = (email) => {
@@ -63,11 +64,11 @@ function PutMembers() {
 
   // 확인 버튼 누르면 zustand 의 정보를 꺼내 서버로 전달
   const handleConfirmClick = () => {
-    const { name, category, start, deadline } = useProjectStore.getState();
+    const { teamName, category, start, deadline } = useProjectStore.getState();
   
     // 프로젝트 생성
     const projectCreatePromise = axios.post('http://43.201.85.197/project/create', {
-      name: name,
+      name: teamName,
       category: category,
       memberList: Object.entries(counts).flatMap(([role, emails]) =>
         emails.map(email => ({ email: String(email), role }))
@@ -84,18 +85,10 @@ function PutMembers() {
         start: start,
         deadline: deadline,
         projectId,
+      }).then(response => {
+        setProjectSchedule(response.data);
       })
     );
-
-    console.log({
-      name: name,
-      category: category,
-      memberList: Object.entries(counts).flatMap(([role, emails]) =>
-      emails.map(email => ({ email: String(email), role }))
-      ),
-      start: start,
-      deadline: deadline,
-    });
   
     Promise.all([projectCreatePromise, projectRecommendPromise])
       .then(([createResponse, recommendResponse]) => {
@@ -179,6 +172,7 @@ function PutMembers() {
         <ButtonBox
           disable={isDisabled}
           onClick={handleConfirmClick}
+          navigateTo="/projectInfo"
         >
           확인
         </ButtonBox>
