@@ -2,17 +2,24 @@ import { useState, useEffect } from 'react';
 import { x } from '@/assets/icons/svg-icons.js';
 import ButtonBox from '../ButtonBox';
 import styles from './../project-list-drawer/ProjectListDrawer.module.css';
+import axios from 'axios';
 
 function ProjectListDrawer({ isOpen, onClose }) {
   const [projectList, setProjectList] = useState([]);
 
   useEffect(() => {
-    // 프로젝트 리스트를 불러오는 비동기함수
     const fetchProjectList = async () => {
-      // 데이터를 가져오는 비동기 요청
-      const response = await fetch(); // API /project
-      const data = await response.json();
-      setProjectList(data.map(item => item.project_name)); // 데이터 설정
+      try {
+        const response = await axios.get('http://43.201.85.197/project/', {
+          params: {
+            userId: 1
+          }
+        });
+        const projectNames = response.data.map(project => project.project_name);
+        setProjectList(projectNames);
+      } catch (error) {
+        console.error('Error fetching data: ', error);
+      }
     };
     fetchProjectList();
   }, []);
@@ -31,7 +38,9 @@ function ProjectListDrawer({ isOpen, onClose }) {
         </button>
         <ul className='flex flex-col gap-4'>
           {projectList.map((title, index) => (
-            <ButtonBox key={index}>{title}</ButtonBox>
+            <ButtonBox key={index} mt={0} mb={0}>
+              {title}
+            </ButtonBox>
           ))}
         </ul>
       </div>
