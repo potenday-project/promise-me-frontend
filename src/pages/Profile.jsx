@@ -10,7 +10,7 @@ function Profile() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:8080/project', {
+      .get('http://43.201.85.197/project', {
         params: {
           user_id: user.id,
         },

@@ -9,7 +9,7 @@ function MeetingMinutesList() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:8080/meeting/', {
+      .get('http://43.201.85.197/meeting/', {
         params: {
           projectId: 1,
         },

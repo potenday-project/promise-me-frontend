@@ -159,7 +159,7 @@ const MeetingMinutesVoice = () => {
     formData.append('projectId', projectId);
 
     axios
-      .post('http://localhost:8080/meeting/transfer', formData)
+      .post('http://43.201.85.197/meeting/transfer', formData)
       .then((response) => {
         console.log('서버 응답:', response.data);
       })
