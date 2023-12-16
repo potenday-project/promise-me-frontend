@@ -32,6 +32,7 @@ function ProgressIndicator({ percent }) {
   };
   const setImage = () => {
     switch (true) {
+      case percent == null:
       case percent == 0:
         return stage0;
       case percent <= 19:
