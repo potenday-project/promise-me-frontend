@@ -30,7 +30,7 @@ function MeetingMinutesDetail() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:8080/meeting/', {
+      .get('http://43.201.85.197/meeting/', {
         params: { projectId: 1 },
       })
       .then((response) => {
@@ -49,7 +49,20 @@ function MeetingMinutesDetail() {
             title={formattedDate}
             sub={`${userName}님을 위해 AI가 회의를 요약했어요`}
           />
-          <TextBox summary={'회의 요약'} content={meeting.summary} />
+          <TextBox
+            summary={'회의 요약'}
+            content={meeting.summary.split('-').map((line, index) =>
+              index == 0 ? (
+                ''
+              ) : (
+                <span key={index}>
+                  {index !== 0 && '-'}
+                  {line}
+                  <br />
+                </span>
+              )
+            )}
+          />
           <TextBox summary={'회의 내용'} content={meeting.meetingContent} />
         </>
       )}
