@@ -29,7 +29,7 @@ function PutDuration() {
   const [startCalendarActive, setStartCalendarActive] = useState(false);
   const [endCalendarActive, setEndCalendarActive] = useState(false);
   // zustand 스토어에서 정보 가져오기
-  const { teamName, category, start, deadline } = useProjectStore();
+  const { category, start, deadline } = useProjectStore();
 
   const handleStartDateChange = (date) => {
     setLocalStartDate(date);
@@ -43,18 +43,16 @@ function PutDuration() {
     console.log(date);
   }
 
-  // 서버에 전송할 데이터를 모아 전송하기
-  const sendDataToServer = () => {
-    const data = {
-      teamName,
-      category,
-      start: startDate,
-      deadline: endDate,
-    };
 
-    axios.post('', data) // api 주소
+  const sendDataToServer = () => {
+    axios.post('http://43.201.85.197/project/recommend/member', {
+        category: category,
+        start: start,
+        deadline: deadline,
+    })
     .then((response) => {
       console.log(response.data);
+      useProjectStore.getState().setMemberInfo(response.data);
     })
     .catch((error) => {
       console.log(error);
