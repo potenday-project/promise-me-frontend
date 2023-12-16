@@ -9,10 +9,13 @@ function ButtonMeetingMinutes({
   id,
   mypage = false,
 }) {
-  const formattedDate = new Intl.DateTimeFormat('ko-KR', {
-    month: 'long',
-    day: 'numeric',
-  }).format(new Date(datetime));
+  let formattedDate;
+  if (!mypage && datetime) {
+    formattedDate = new Intl.DateTimeFormat('ko-KR', {
+      month: 'long',
+      day: 'numeric',
+    }).format(new Date(datetime));
+  }
 
   return (
     <Link
@@ -27,8 +30,14 @@ function ButtonMeetingMinutes({
             </p>
             {mypage ? '' : <img src={chevronRight} />}
           </div>
-          <time className="text-title5 -text--grey700 ">{formattedDate}</time>
-          <p className="pt-1 overflow-hidden break-words text-body4 text-ellipsis line-clamp-2">
+          <time className="text-title5 -text--grey700 ">
+            {mypage ? datetime : formattedDate}
+          </time>
+          <p
+            className={`pt-1 overflow-hidden break-words text-body4 text-ellipsis line-clamp-2 ${
+              mypage ? '' : ` min-h-[46px]`
+            }`}
+          >
             {summary}
           </p>
         </div>

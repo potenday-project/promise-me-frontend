@@ -1,9 +1,10 @@
+import { square, squareChecked } from '@/assets/icons/svg-icons';
 import { useState } from 'react';
 import styled, { css } from 'styled-components';
-import { squareChecked, square } from '@/assets/icons/svg-icons';
+import PropTypes from 'prop-types';
 
-function TodoItem({ text, isChecked }) {
-  const [isCheckedState, setIsChecked] = useState(isChecked);
+function TodoItem({ text, ischecked, onClick }) {
+  const [isCheckedState, setIsChecked] = useState(ischecked);
 
   const onClickCheck = () => {
     setIsChecked(!isCheckedState);
@@ -11,7 +12,7 @@ function TodoItem({ text, isChecked }) {
 
   return (
     <>
-      <StyledInputWrapper className="flex w-full px-2">
+      <StyledInputWrapper onClick={onClick} className="flex w-full px-2">
         <StyledInput
           className="hidden"
           type="checkbox"
@@ -60,3 +61,8 @@ const StyledLabel = styled.label`
 `;
 
 const StyledP = styled.p``;
+
+TodoItem.propTypes = {
+  text: PropTypes.string,
+  ischecked: PropTypes.bool,
+};
