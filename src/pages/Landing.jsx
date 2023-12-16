@@ -1,19 +1,22 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import { landing } from '@/assets/icons/svg-icons';
+import ButtonBox from '@/components/ButtonBox';
 
 function Landing() {
-  const navigate = useNavigate();
-  const handleEntry = () => {
-    navigate('putprojectname');
-  };
-
-  return(
-    <button
-      className="w-auto h-20 m-7 p-7 flex justify-center items-center bg-blue-300"
-      onClick={handleEntry}
-    >
-      클릭해서 프로젝트 생성 창으로 넘어가세요
-    </button>
-  )
+  return (
+    <section className="relative">
+      <div className="z-10 absolute text-[24px] font-black top-20 left-4">
+        프로젝트 계획부터 관리까지, <br />
+        AI가 함께합니다.
+      </div>
+      <img src={landing} className="w-screen h-screen scale-105"></img>
+      <div className="fixed w-[calc(100vw-32px)]  bottom-0">
+        <ButtonBox navigateTo="/putprojectname">
+          AI 로 프로젝트를 관리를 시작해 보세요
+        </ButtonBox>
+      </div>
+    </section>
+  );
 }
 
 export default Landing;
