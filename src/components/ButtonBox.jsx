@@ -48,7 +48,7 @@ function ButtonBox({
   return (
     <button
       type={type}
-      className={`p-2.5 text-title4 box-border rounded-lg w-full ${colorClass} mt-${mt} mb-${mb}`}
+      className={`p-2.5 text-title4 box-border rounded-lg w-full ${colorClass} mt-${mt} mb-${mb} flex justify-center items-center`} // 'flex', 'justify-center', 'items-center' 클래스를 추가
       disabled={disable}
       {...restProps}
       onClick={handleClick}
