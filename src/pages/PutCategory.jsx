@@ -2,6 +2,7 @@ import ButtonBox from "@/components/ButtonBox";
 import ButtonRound from "@/components/ButtonRound";
 import PlaceholderRound from "@/components/PlaceHolderRound";
 import useProjectStore from "@/store/project";
+import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 
@@ -14,14 +15,19 @@ function PutCategory() {
   useEffect(() => {
     // 인기 검색어 (카테고리들) 를 불러오는 비동기함수
     const fetchCategories = async () => {
-      // 데이터를 가져오는 비동기 요청
-      // const response = await fetch(); // API
-      // const data = await response.json();
-      const data = ['웹 개발', '신제품 기획', '편집디자인', '건축 설계', '카페 창업']; // 예시 데이터
-      setCategories(data);
+      try {
+        // 데이터를 가져오는 비동기 요청
+        const response = await axios.get('http://43.201.85.197/project/category');
+        const data = response.data;
+  
+        setCategories(data);
+      } catch (error) {
+        console.error('카테고리를 불러오는데 실패했습니다:', error);
+      }
     };
     fetchCategories();
   }, []);
+  
 
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
