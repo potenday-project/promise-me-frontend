@@ -15,16 +15,15 @@ function MeetingMinutesText() {
     textareaElement.style.height = `${textareaElement.scrollHeight + 2}px`;
   }, [text]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
+    const formData = new FormData();
+    formData.append('meeting_content', text);
+    formData.append('project_id', projectId);
 
     try {
       const response = await axios.post(
-        'http://localhost:8080/meeting/summary',
-        {
-          text: text,
-          // project_id: projectId,
-        }
+        'http://43.201.85.197/meeting/summary',
+        formData
       );
 
       console.log(response.data);
@@ -37,7 +36,7 @@ function MeetingMinutesText() {
   return (
     <section>
       <TitleTextBox title="회의록을 기록해주세요" />
-      <form onSubmit={handleSubmit}>
+      <form>
         <textarea
           id="dynamic-textarea"
           className="w-full min-h-[138px] p-4 text-body4 -bg--primary-blue50 content-start focus:outline-none border-[1px] rounded-lg"
@@ -46,7 +45,11 @@ function MeetingMinutesText() {
           onChange={(e) => setText(e.target.value)}
         />
         <div className="fixed w-[calc(100vw-32px)] bottom-4">
-          <ButtonBox type="submit" disable={!text}>
+          <ButtonBox
+            onClick={handleSubmit}
+            disable={!text}
+            navigateTo="/meetingminuteslist"
+          >
             저장하기
           </ButtonBox>
         </div>

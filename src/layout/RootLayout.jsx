@@ -26,7 +26,7 @@ function RootLayout() {
     pathname === '/putmembers' ||
     pathname === '/putprojectname' ||
     pathname === '/puttopic' ||
-    pathname === '/meetingminutesdetail' ||
+    pathname.startsWith('/meetingminutesdetail/') ||
     pathname === '/meetingminutestext' ||
     pathname === '/meetingminutesvoice'
   ) {
