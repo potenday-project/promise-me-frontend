@@ -61,7 +61,7 @@ function Home() {
     const fetchData = async () => {
       try {
         // 데이터를 가져오는 비동기 요청
-        const response = await fetch(''); // api 넣기
+        const response = await fetch(''); // api 넣기 http://43.201.85.197/
         const data = await response.json();
 
         setTodoArray(data.rodoArray);
