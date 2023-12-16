@@ -17,9 +17,6 @@ function PutMembers() {
   const [isDisabled, setIsDisabled] = useState(true);
 
   const roles = useProjectStore(state => state.memberInfo);
-  // const roles = Object.keys(memberInfo);
-
-  console.log(roles);
 
   // 이메일 유효성 검사
   const isValidEmail = (email) => {
@@ -32,7 +29,6 @@ function PutMembers() {
     setEmail(event.target.value);
     const valid = isValidEmail(event.target.value)
     setIsValid(valid);
-    console.log(valid)
   };
 
   // 각 역할 버튼 클릭시, 서버 이메일 존재 여부 요청
@@ -41,10 +37,10 @@ function PutMembers() {
   const handleButtonClick = (role) => {
     if(isValid) {
       axios
-      .post('http://43.201.85.197/users/check', { email : email })// {email} 도 바꿔야할 수도 있음
+      .post('http://43.201.85.197/users/check', { email : email })
       .then(response => {
         const { data } = response;
-        if(data.user_id) {
+        if(data) {
           setCounts({
             ...counts,
             [role]: counts[role] ? [...counts[role], email] : [email], // 직군별로 이메일 그룹화
@@ -58,6 +54,7 @@ function PutMembers() {
         setEmail('') //이메일 초기화
       })
       .catch(error => {
+        alert('가입된 사용자가 아닙니다.')
         console.error('Error verifying email:',error) //오류처리
       })
     }
@@ -69,19 +66,19 @@ function PutMembers() {
   
     // 프로젝트 생성
     const projectCreatePromise = axios.post('http://43.201.85.197/project/create', {
-      name,
-      category,
+      name: name,
+      category: category,
       memberList: members,
-      start,
-      deadline,
+      start: start,
+      deadline: deadline,
     });
   
     // 프로젝트 일정 추천
     const projectRecommendPromise = axios.post('http://43.201.85.197/project/recommend/schedule', {
-      category,
+      category: category,
       members,
-      start,
-      deadline,
+      start: start,
+      deadline: deadline,
     });
   
     Promise.all([projectCreatePromise, projectRecommendPromise])
