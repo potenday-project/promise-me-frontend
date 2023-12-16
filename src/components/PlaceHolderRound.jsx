@@ -2,7 +2,8 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { circleX, circleAlert, searchBlue } from '@/assets/icons/svg-icons';
 import ErrorMessage from './ErrorMessage';
-function PlaceholderLine({
+
+function PlaceholderRound({
   name,
   label,
   placeholder,
@@ -72,9 +73,9 @@ function PlaceholderLine({
   );
 }
 
-export default PlaceholderLine;
+export default PlaceholderRound;
 
-PlaceholderLine.propTypes = {
+PlaceholderRound.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,

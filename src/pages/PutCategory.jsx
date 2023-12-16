@@ -1,6 +1,6 @@
 import ButtonBox from "@/components/ButtonBox";
 import ButtonRound from "@/components/ButtonRound";
-import PlaceHolderRound from "@/components/PlaceHolderRound";
+import PlaceholderRound from "@/components/PlaceHolderRound";
 import useProjectStore from "@/store/project";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -45,7 +45,7 @@ function PutCategory() {
         우리 팀의<br/>
         프로젝트 분야를 알려주세요
       </p>
-      <PlaceHolderRound
+      <PlaceholderRound
         name="search"
         label="검색"
         placeholder="검색어를 입력해주세요"

@@ -1,7 +1,7 @@
 import ButtonBox from "@/components/ButtonBox";
 import ButtonRound from "@/components/ButtonRound";
 import PlaceholderLine from "@/components/PlaceHolderLine";
-import PlaceholderRound from "@/components/PlaceholderRound";
+import PlaceholderRound from "@/components/PlaceHolderRound";
 import useProjectStore from "@/store/project";
 import axios from "axios";
 import { useState } from "react";
