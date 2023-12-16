@@ -22,7 +22,7 @@ function MeetingMinutesText() {
 
     try {
       const response = await axios.post(
-        'http://localhost:8080/meeting/summary',
+        'http://43.201.85.197/meeting/summary',
         formData
       );
 
