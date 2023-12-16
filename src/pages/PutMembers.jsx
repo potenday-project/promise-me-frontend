@@ -4,7 +4,7 @@ import PlaceholderLine from "@/components/PlaceHolderLine";
 import PlaceholderRound from "@/components/PlaceHolderRound";
 import useProjectStore from "@/store/project";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 
 function PutMembers() {
@@ -12,26 +12,26 @@ function PutMembers() {
   const navigate = useNavigate();
 
   // 작업을 위한 예시 데이터, 나중에 지우기
-  const exampleData = [
-    '프로젝트 매니저',
-    '백엔드 개발자',
-    '프론트엔드 개발자',
-    'UI/UX 디자이너'
-  ];
-  const [roles, setRoles] = useState(exampleData);
+  // const exampleData = [
+  //   '프로젝트 매니저',
+  //   '백엔드 개발자',
+  //   '프론트엔드 개발자',
+  //   'UI/UX 디자이너'
+  // ];
+  const [roles, setRoles] = useState([]);
   const [email, setEmail] = useState('');
   const [counts, setCounts] = useState({});
   const [isValid, setIsValid] = useState(null);
   const [isDisabled, setIsDisabled] = useState(true);
 
-  // useEffect(() => {
-  //   axios.get('') // api
-  //   .then(response => {
-  //     const roles = response.data.flatMap(item =>
-  //       item.member_list.map(member => member.role))
-  //     setRoles(roles);
-  //   })
-  // })
+  useEffect(() => {
+    axios.get('http://43.201.85.197/recemmend/member')
+      .then(response => {
+        const roles = response.data.map(item => item.member_list.map(member => member.role))
+          .reduce((acc, cur) => acc.concat(cur), []);
+        setRoles(roles);
+      })
+  }, []);
 
   // 이메일 유효성 검사
   const isValidEmail = (email) => {
@@ -53,8 +53,8 @@ function PutMembers() {
   const handleButtonClick = (role) => {
     if(isValid) {
       axios
-      .post('', { email })// 이메일 검증 api/users/check, {email} 도 바꿔야할 수도 있음
-      .them(response => {
+      .post('http://43.201.85.197/users/check', { email })// {email} 도 바꿔야할 수도 있음
+      .then(response => {
         const { data } = response;
         if(data.user_id) {
           setCounts({
@@ -78,25 +78,36 @@ function PutMembers() {
   // 확인 버튼 누르면 zustand 의 정보를 꺼내 서버로 전달
   const handleConfirmClick = () => {
     const { name, category, start, deadline, members } = useProjectStore.getState();
-    // http://localhost:8080/project/create
-    axios.post('', {
+  
+    // 프로젝트 생성
+    const projectCreatePromise = axios.post('http://43.201.85.197/project/create', {
       name,
       category,
       memberList: members,
       start,
       deadline,
-    })
-    .then(response => {
-      if(response.state === 200 ) {
-        alert('프로젝트 생성에 성공하였습니다.');
-        navigate('/projectInfo');
-      } else {
-        alert('프로젝트 생성에 실패하였습니다.')
-      }
-    })
-    .catch(error => {
-      console.error('Error creating project:', error); // 오류 처리
     });
+  
+    // 프로젝트 일정 추천
+    const projectRecommendPromise = axios.post('http://43.201.85.197/project/recommend/schedule', {
+      category,
+      members,
+      start,
+      deadline,
+    });
+  
+    Promise.all([projectCreatePromise, projectRecommendPromise])
+      .then(([createResponse, recommendResponse]) => {
+        if(createResponse.status === 200 && recommendResponse.status === 200) {
+          alert('프로젝트 생성 및 스케줄 추천에 성공하였습니다.');
+          navigate('/projectInfo');
+        } else {
+          alert('프로젝트 생성 또는 스케줄 추천에 실패하였습니다.')
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
   };
 
   // 이메일 삭제
