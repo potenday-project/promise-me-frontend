@@ -135,11 +135,20 @@ function Home() {
           {!isLoading &&
             data.todoAll
               .filter((allData) => allData.role === isSelectedButton)
-              .map((filteredData, index) => {
+              .reduce((unique, item) => {
+                return unique.some(
+                  (uniqueItem) =>
+                    uniqueItem.recommendation === item.recommendation
+                )
+                  ? unique
+                  : [...unique, item];
+              }, [])
+              .map((uniqueData, index) => {
+                // 중복이 제거된 데이터를 출력합니다.
+                // 출력 형식은 필요에 따라 수정해 주세요.
                 return (
                   <div key={index}>
-                    <h3>{filteredData.recommendation}</h3>{' '}
-                    {/* 예: 이름을 출력 */}
+                    <h3>{uniqueData.recommendation}</h3>
                   </div>
                 );
               })}
