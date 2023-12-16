@@ -151,6 +151,7 @@ function PutMembers() {
         </ul>
       <div className="bg-blue-50 border -border--grey300 rounded-lg p-4 mb-20 flex flex-col gap-6">
         {Object.entries(counts).map(([role, emails], index) => (
+          emails.length > 0 && (
           <div key={index}>
             <p className="text-title4">
               {role} {emails.length}명
@@ -166,6 +167,7 @@ function PutMembers() {
               />
             ))}
           </div>
+          )
         ))}
       </div>
       <div className="fixed w-[calc(100vw-32px)] bottom-0 bg-white">
