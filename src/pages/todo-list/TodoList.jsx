@@ -10,11 +10,19 @@ import {
   square,
   squareBeforeChecked,
 } from '@/assets/icons/svg-icons';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 function TodoList() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
+  const [todoArray, setTodoArray] = useState([]);
+  const formattedDate = selectedDate.toISOString().split('T')[0];
+
+  useEffect(() => {
+    getTodos();
+  }, [formattedDate]);
 
   const handlePrevDate = () => {
     const prevDate = new Date(selectedDate); // 이전 날짜 계산
@@ -27,25 +35,6 @@ function TodoList() {
     nextDate.setDate(nextDate.getDate() + 1);
     setSelectedDate(nextDate); // 상태 업데이트
   };
-
-  const [todoArray, setTodoArray] = useState([
-    {
-      text: '컬러칩 1',
-      isChecked: false,
-    },
-    {
-      text: '컬러칩 22',
-      isChecked: true,
-    },
-    {
-      text: '333',
-      isChecked: false,
-    },
-    {
-      text: '444',
-      isChecked: true,
-    },
-  ]);
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
@@ -65,13 +54,58 @@ function TodoList() {
     setIsModalOpen(false);
   };
 
-  const handleKeyPress = (event) => {
-    if (event.key === 'Enter') {
-      setTodoArray((prevTodoArray) => [
-        ...prevTodoArray,
-        { text: inputValue, isChecked: false },
-      ]);
-      setInputValue('');
+  const getTodos = () => {
+    axios
+      .get('http://43.201.85.197/todo/', {
+        params: {
+          projectId: 8,
+          userId: 3,
+          todoDate: formattedDate,
+        },
+      })
+      .then((response) => {
+        setTodoArray(response.data);
+      })
+      .catch((error) => {
+        console.error('데이터를 가져오는 중 오류가 발생했습니다:', error);
+      });
+  };
+
+  const handleTodoItemClick = (todoId) => {
+    axios
+      .post('http://43.201.85.197/todo/check', { todoId })
+      .then((response) => {
+        console.log('서버 응답:', response.data);
+        getTodos(); // POST 요청이 성공한 후에 데이터 다시 불러오기
+      })
+      .catch((error) => {
+        console.error(
+          '보낼 ID',
+          todoId,
+          '투두 아이템 클릭을 서버에 보내는 중 오류가 발생했습니다:',
+          error
+        );
+      });
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter' && inputValue.trim() !== '') {
+      console.log(inputValue);
+      axios
+        .post('http://43.201.85.197/todo/', {
+          content: inputValue,
+          projectId: 8,
+          userId: 3,
+          todoDate: formattedDate,
+        })
+        .then((response) => {
+          getTodos(); // POST 요청이 성공한 후에 데이터 다시 불러오기
+        })
+        .catch((error) => {
+          console.error('데이터를 전송하는 중 오류가 발생했습니다:', error);
+        });
+
+      setInputValue(''); // 입력값 초기화
     }
   };
 
@@ -101,9 +135,13 @@ function TodoList() {
           )}
 
           <ul className="flex flex-col gap-2 mt-12">
-            {todoArray.map((todo, index) => (
-              <li key={index}>
-                <TodoItem text={todo.text} isChecked={todo.isChecked} />
+            {todoArray.map((todo) => (
+              <li key={todo.todoId}>
+                <TodoItem
+                  text={todo.content}
+                  ischecked={todo.completed}
+                  onClick={() => handleTodoItemClick(todo.todoId)} // 클릭 이벤트 핸들러 추가
+                />
               </li>
             ))}
 
@@ -127,7 +165,7 @@ function TodoList() {
             </li>
           </ul>
         </div>
-        <button className="-order-1" onClick={handlePrevDate}>
+        <button onClick={handlePrevDate} className="-order-1">
           <img src={triangleLeft} alt="이전날짜" />
         </button>
         <button onClick={handleNextDate}>

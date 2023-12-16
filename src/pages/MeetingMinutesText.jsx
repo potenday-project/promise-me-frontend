@@ -3,6 +3,7 @@ import TitleTextBox from '@/components/TitleTextBox';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useCallback } from 'react';
 
 function MeetingMinutesText() {
   const [text, setText] = useState('');
@@ -15,23 +16,20 @@ function MeetingMinutesText() {
     textareaElement.style.height = `${textareaElement.scrollHeight + 2}px`;
   }, [text]);
 
-  const handleSubmit = async () => {
-    const formData = new FormData();
-    formData.append('meeting_content', text);
-    formData.append('project_id', projectId);
-
-    try {
-      const response = await axios.post(
-        'http://43.201.85.197/meeting/summary',
-        formData
-      );
-
-      console.log(response.data);
-      navigate('/meetingminuteslist');
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const handleSubmit = useCallback(() => {
+    axios
+      .post('http://43.201.85.197/meeting/summary', {
+        meetingContent: text,
+        projectId: projectId,
+      })
+      .then((response) => {
+        console.log('서버 응답:', response.data);
+        navigate('/meetingminuteslist');
+      })
+      .catch((error) => {
+        console.error('오류 발생:', error);
+      });
+  }, [text, projectId]);
 
   return (
     <section>
@@ -44,7 +42,7 @@ function MeetingMinutesText() {
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
-        <div className="fixed w-[calc(100vw-32px)] bottom-4">
+        <div className="fixed w-[calc(100vw-32px)] -bg--system-white bottom-0">
           <ButtonBox
             onClick={handleSubmit}
             disable={!text}

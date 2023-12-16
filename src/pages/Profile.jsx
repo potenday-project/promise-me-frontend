@@ -10,13 +10,14 @@ function Profile() {
 
   useEffect(() => {
     axios
-      .get('http://43.201.85.197/project', {
+      .get('http://43.201.85.197/project/', {
         params: {
-          user_id: user.id,
+          userId: 3,
         },
       })
       .then((response) => {
-        setProjects(response.data.project_list);
+        setProjects(response.data);
+        console.log(response);
       })
       .catch((error) => {
         console.error('데이터를 가져오는 중 오류가 발생했습니다:', error);
@@ -42,10 +43,11 @@ function Profile() {
           {projects.map((project, index) => (
             <ButtonMeetingMinutes
               key={index}
-              title={project.project_name}
-              role={project.role}
+              title={project.name}
+              datetime={`${project.start}~${project.deadline}`}
+              // summary={`asd`}
               mypage={true}
-              id={project.project_id}
+              id={project.id}
             />
           ))}
         </div>

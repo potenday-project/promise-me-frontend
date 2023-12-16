@@ -32,7 +32,7 @@ function MeetingMinutesList() {
         {meetingMinutes.map((data, index) => (
           <ButtonMeetingMinutes
             key={index}
-            title={data.meetingContent}
+            title={data.meetingName}
             datetime={data.meetingDate}
             summary={data.summary}
             id={data.meetingId}

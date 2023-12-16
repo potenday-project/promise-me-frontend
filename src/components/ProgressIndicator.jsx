@@ -1,4 +1,12 @@
 import PropTypes from 'prop-types';
+import {
+  stage1,
+  stage2,
+  stage3,
+  stage4,
+  stage5,
+  stage6,
+} from '@/assets/icons/svg-icons';
 
 function ProgressIndicator({ percent }) {
   const setMessage = () => {
@@ -19,13 +27,31 @@ function ProgressIndicator({ percent }) {
         return 'Invalid percent';
     }
   };
+  const setImage = () => {
+    switch (true) {
+      case percent <= 19:
+        return stage1;
+      case percent <= 39:
+        return stage2;
+      case percent <= 59:
+        return stage3;
+      case percent <= 79:
+        return stage4;
+      case percent <= 99:
+        return stage5;
+      case percent === 100:
+        return stage6;
+      default:
+        return 'Invalid percent';
+    }
+  };
 
   return (
-    <div className="flex flex-col items-center gap-3">
+    <div className="flex flex-col items-center gap-3 ">
       <img
-        src="" //이미지 소스 삽입
+        src={setImage()} //이미지 소스 삽입
         alt="진행도 이미지"
-        className=" border-[1px] w-[240px] rounded-lg h-[240px]"
+        className=" border-[1px] w-[240px] -bg--system-white rounded-lg h-[240px] b"
       />
       <div className="w-[248px] h-2 rounded-full -bg--grey300 relative">
         <div
