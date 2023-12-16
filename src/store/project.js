@@ -4,15 +4,16 @@ import { create } from 'zustand';
 // memberInfo : putduration 에서 통신하여 roleinfo 페이지에서 사용하기 위함
 const useProjectStore = create((set) => {
   return {
-    name: '',
+    teamName: '',
     category: '',
     start: new Date(),
     deadline: new Date(),
     members: '',
 
     memberInfo: {},
+    projectSchedule: [],
 
-    setTeamName: (name) => set(() => ({ teamName: name })),
+    setTeamName: (teamName) => set(() => ({ teamName: teamName })),
     setCategory: (category) => set(() => ({ category: category })),
     setStart: (start) => set(() => ({ start: start.toISOString().split('T')[0] })),
     setDeadline: (deadline) => set(() => ({ deadline: deadline.toISOString().split('T')[0] })),    
@@ -30,6 +31,7 @@ const useProjectStore = create((set) => {
       }));
       set({ memberInfo: memberInfoArray });
     },
+    setProjectSchedule: (schedule) => set(() => ({ projectSchedule: schedule })),
   };
 });
 
