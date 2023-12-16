@@ -16,8 +16,8 @@ function PutMembers() {
   const [isValid, setIsValid] = useState(null);
   const [isDisabled, setIsDisabled] = useState(true);
 
-  const memberInfo = useProjectStore(state => state.memberInfo)
-  const roles = Object.keys(memberInfo);
+  const roles = useProjectStore(state => state.memberInfo);
+  // const roles = Object.keys(memberInfo);
 
   console.log(roles);
 
@@ -126,17 +126,23 @@ function PutMembers() {
       >
       </PlaceholderRound>
       <ul className="flex flex-row flex-wrap gap-2 mt-4 mb-8">
-        {roles && roles.map((role, index) => ( // roles 가 정의되었는지 확인, 추후 수정 가능
-          <li key={index}>
-            <ButtonRound
-              status={counts[role] && counts[role].length > 0 ? 'clicked' : ''} // 이메일이 추가되었으면 파랑색으로 변경
-              onClick={() => handleButtonClick(role)} // 클릭하면 카운트, 아래에 이메일 입력
-            >
-              {role}
-            </ButtonRound>
-          </li>
-        ))}
-      </ul>
+        {
+          roles
+          ? (roles.length > 0
+            ? roles.map((item, index) => (
+              <li key={index}>
+                <ButtonRound
+                  status={counts[item.role] && counts[item.role].length > 0 ? 'clicked' : ''} // 이메일이 추가되었으면 파랑색으로 변경
+                  onClick={() => handleButtonClick(item.role)} // 클릭하면 카운트, 아래에 이메일 입력
+                >
+                  {item.role}
+                </ButtonRound>
+              </li>
+            ))
+            : 'AI가 열심히 작성중이에요 ...')
+          : '데이터를 불러오는 중입니다'
+        }
+        </ul>
       <div className="bg-blue-50 border -border--grey300 rounded-lg p-4 flex flex-col gap-6">
         {Object.entries(counts).map(([role, emails], index) => (
           <div key={index}>
