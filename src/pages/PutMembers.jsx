@@ -16,10 +16,7 @@ function PutMembers() {
   const [isValid, setIsValid] = useState(null);
   const [isDisabled, setIsDisabled] = useState(true);
 
-  const memberInfo = useProjectStore(state => state.memberInfo)
-  const roles = Object.keys(memberInfo);
-
-  console.log(roles);
+  const roles = useProjectStore(state => state.memberInfo);
 
   // 이메일 유효성 검사
   const isValidEmail = (email) => {
@@ -32,7 +29,6 @@ function PutMembers() {
     setEmail(event.target.value);
     const valid = isValidEmail(event.target.value)
     setIsValid(valid);
-    console.log(valid)
   };
 
   // 각 역할 버튼 클릭시, 서버 이메일 존재 여부 요청
@@ -41,13 +37,14 @@ function PutMembers() {
   const handleButtonClick = (role) => {
     if(isValid) {
       axios
-      .post('http://43.201.85.197/users/check', { email : email })// {email} 도 바꿔야할 수도 있음
+      .post('http://43.201.85.197/users/check', { email : email })
       .then(response => {
         const { data } = response;
-        if(data.user_id) {
+        if(data) {
           setCounts({
             ...counts,
-            [role]: counts[role] ? [...counts[role], email] : [email], // 직군별로 이메일 그룹화
+            [role]: counts[role] ? [...counts[role], email] : [email],
+            // 직군별로 이메일 그룹화
           });
           // zustand 스토어에 저장
           useProjectStore.getState().setMembers(counts);
@@ -55,9 +52,10 @@ function PutMembers() {
         } else {
           alert(data.message);
         }
-        setEmail('') //이메일 초기화
       })
       .catch(error => {
+        alert('가입된 사용자가 아닙니다.')
+        setIsValid(false);
         console.error('Error verifying email:',error) //오류처리
       })
     }
@@ -65,23 +63,38 @@ function PutMembers() {
 
   // 확인 버튼 누르면 zustand 의 정보를 꺼내 서버로 전달
   const handleConfirmClick = () => {
-    const { name, category, start, deadline, members } = useProjectStore.getState();
+    const { name, category, start, deadline } = useProjectStore.getState();
   
     // 프로젝트 생성
     const projectCreatePromise = axios.post('http://43.201.85.197/project/create', {
-      name,
-      category,
-      memberList: members,
-      start,
-      deadline,
-    });
+      name: name,
+      category: category,
+      memberList: Object.entries(counts).flatMap(([role, emails]) =>
+        emails.map(email => ({ email: String(email), role }))
+      ),
+      start: start,
+      deadline: deadline,
+    }).then(response => response.data.projectId);
   
     // 프로젝트 일정 추천
-    const projectRecommendPromise = axios.post('http://43.201.85.197/project/recommend/schedule', {
-      category,
-      members,
-      start,
-      deadline,
+    const projectRecommendPromise = projectCreatePromise.then(projectId =>
+      axios.post('http://43.201.85.197/project/recommend/schedule', {
+        category: category,
+        members: Object.keys(counts),
+        start: start,
+        deadline: deadline,
+        projectId,
+      })
+    );
+
+    console.log({
+      name: name,
+      category: category,
+      memberList: Object.entries(counts).flatMap(([role, emails]) =>
+      emails.map(email => ({ email: String(email), role }))
+      ),
+      start: start,
+      deadline: deadline,
     });
   
     Promise.all([projectCreatePromise, projectRecommendPromise])
@@ -125,19 +138,25 @@ function PutMembers() {
         isValid={isValid}
       >
       </PlaceholderRound>
-      <ul className="flex flex-row flex-wrap gap-2 mt-4 mb-8">
-        {roles && roles.map((role, index) => ( // roles 가 정의되었는지 확인, 추후 수정 가능
-          <li key={index}>
-            <ButtonRound
-              status={counts[role] && counts[role].length > 0 ? 'clicked' : ''} // 이메일이 추가되었으면 파랑색으로 변경
-              onClick={() => handleButtonClick(role)} // 클릭하면 카운트, 아래에 이메일 입력
-            >
-              {role}
-            </ButtonRound>
-          </li>
-        ))}
-      </ul>
-      <div className="bg-blue-50 border -border--grey300 rounded-lg p-4 flex flex-col gap-6">
+      <ul className="flex flex-row flex-wrap gap-2 mt-4 mb-6">
+        {
+          roles
+          ? (roles.length > 0
+            ? roles.map((item, index) => (
+              <li key={index}>
+                <ButtonRound
+                  status={counts[item.role] && counts[item.role].length > 0 ? 'clicked' : ''} // 이메일이 추가되었으면 파랑색으로 변경
+                  onClick={() => handleButtonClick(item.role)} // 클릭하면 카운트, 아래에 이메일 입력
+                >
+                  {item.role}
+                </ButtonRound>
+              </li>
+            ))
+            : 'AI가 열심히 작성중이에요 ...')
+          : '데이터를 불러오는 중입니다'
+        }
+        </ul>
+      <div className="bg-blue-50 border -border--grey300 rounded-lg p-4 mb-20 flex flex-col gap-6">
         {Object.entries(counts).map(([role, emails], index) => (
           <div key={index}>
             <p className="text-title4">
@@ -156,7 +175,7 @@ function PutMembers() {
           </div>
         ))}
       </div>
-      <div className="fixed w-[calc(100vw-32px)] bottom-4">
+      <div className="fixed w-[calc(100vw-32px)] bottom-0 bg-white">
         <ButtonBox
           disable={isDisabled}
           onClick={handleConfirmClick}
