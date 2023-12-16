@@ -69,8 +69,8 @@ function PutMembers() {
     const projectCreatePromise = axios.post('http://43.201.85.197/project/create', {
       name: name,
       category: category,
-      memberList: Object.entries(counts).flatMap(([role, userIds]) =>
-        userIds.map(userId => ({ userId: String(userId), role }))
+      memberList: Object.entries(counts).flatMap(([role, emails]) =>
+        emails.map(email => ({ email: String(email), role }))
       ),
       start: start,
       deadline: deadline,
@@ -86,6 +86,16 @@ function PutMembers() {
         projectId,
       })
     );
+
+    console.log({
+      name: name,
+      category: category,
+      memberList: Object.entries(counts).flatMap(([role, emails]) =>
+      emails.map(email => ({ email: String(email), role }))
+      ),
+      start: start,
+      deadline: deadline,
+    });
   
     Promise.all([projectCreatePromise, projectRecommendPromise])
       .then(([createResponse, recommendResponse]) => {
