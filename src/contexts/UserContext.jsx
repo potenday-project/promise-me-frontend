@@ -1,23 +1,37 @@
-import { Component, createContext } from 'react';
+import { useState, useEffect, createContext } from 'react';
 
 const UserContext = createContext({
-  userId: '',
-  projectId: '',
+  userId: 1,
+  projectId: 1,
 });
 
-class UserProvider extends Component {
-  state = {
-    userId: '',
-    projectId: '',
-  };
+function UserProvider({ children }) {
+  const [userId, setUserId] = useState(
+    () => Number(localStorage.getItem('loggedInUser')) || 1
+  );
+  const [projectId, setProjectId] = useState(
+    () => Number(localStorage.getItem('currentProjectId')) || 1
+  );
 
-  render() {
-    return (
-      <UserContext.Provider value={this.state}>
-        {this.props.children}
-      </UserContext.Provider>
-    );
-  }
+  useEffect(() => {
+    const storedUserId = Number(localStorage.getItem('loggedInUser'));
+    const storedProjectId = Number(localStorage.getItem('currentProjectId'));
+
+    if (storedUserId) {
+      setUserId(storedUserId);
+    }
+    if (storedProjectId) {
+      setProjectId(storedProjectId);
+    }
+  }, []);
+
+  return (
+    <UserContext.Provider
+      value={{ userId, projectId, setProjectId, setUserId }}
+    >
+      {children}
+    </UserContext.Provider>
+  );
 }
 
 export { UserContext, UserProvider };
