@@ -54,7 +54,8 @@ function ProjectListDrawer({ isOpen, onClose }) {
                   mb={0}
                   navigateTo="/home"
                   onClick={() => {
-                    setProjectId(item.projectId);
+                    setProjectId(item.projectId + 1);
+                    console.log('설정된 프로젝트 아이디', projectId);
                     onClose();
                   }}
                 >
@@ -69,7 +70,7 @@ function ProjectListDrawer({ isOpen, onClose }) {
               status="revers"
               mt={0}
               mb={0}
-              navigateTo="/projectname"
+              navigateTo="/putprojectname"
               onClick={() => {
                 onClose();
               }}
