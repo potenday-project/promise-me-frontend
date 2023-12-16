@@ -38,7 +38,9 @@ function ProjectListDrawer({ isOpen, onClose }) {
         </button>
         <ul className='flex flex-col gap-4'>
           {projectList.map((title, index) => (
-            <ButtonBox key={index} mt={0} mb={0}>{title}</ButtonBox>
+            <ButtonBox key={index} mt={0} mb={0}>
+              {title}
+            </ButtonBox>
           ))}
         </ul>
       </div>
