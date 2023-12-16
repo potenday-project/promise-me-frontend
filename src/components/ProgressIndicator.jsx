@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import {
+  stage0,
   stage1,
   stage2,
   stage3,
@@ -11,6 +12,8 @@ import {
 function ProgressIndicator({ percent }) {
   const setMessage = () => {
     switch (true) {
+      case percent == 0:
+        return '준비가 끝났나요?';
       case percent <= 19:
         return '시작이 반이에요!';
       case percent <= 39:
@@ -29,6 +32,8 @@ function ProgressIndicator({ percent }) {
   };
   const setImage = () => {
     switch (true) {
+      case percent == 0:
+        return stage0;
       case percent <= 19:
         return stage1;
       case percent <= 39:
