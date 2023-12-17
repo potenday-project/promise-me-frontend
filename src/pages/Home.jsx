@@ -55,8 +55,7 @@ function Home() {
       .then(
         axios.spread((projectRes, ddayRes, progressRes, todoAllRes) => {
           setData({
-            projectData: '2023-12-17',
-            // projectRes.data,
+            projectData: projectRes.data,
             dday: ddayRes.data.Dday,
             progress: progressRes.data.progress,
             todoAll: todoAllRes.data,
