@@ -12,6 +12,8 @@ import {
 } from '@/assets/icons/svg-icons';
 import { useEffect } from 'react';
 import axios from 'axios';
+import { useContext } from 'react';
+import { UserContext } from '@/contexts/UserContext';
 
 function TodoList() {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -19,6 +21,7 @@ function TodoList() {
   const [inputValue, setInputValue] = useState('');
   const [todoArray, setTodoArray] = useState([]);
   const formattedDate = selectedDate.toISOString().split('T')[0];
+  const { userId, projectId, setProjectId } = useContext(UserContext);
 
   useEffect(() => {
     getTodos();
@@ -58,8 +61,8 @@ function TodoList() {
     axios
       .get('http://43.201.85.197/todo/', {
         params: {
-          projectId: 8,
-          userId: 3,
+          projectId: projectId,
+          userId: userId,
           todoDate: formattedDate,
         },
       })
@@ -94,8 +97,8 @@ function TodoList() {
       axios
         .post('http://43.201.85.197/todo/', {
           content: inputValue,
-          projectId: 8,
-          userId: 3,
+          projectId: projectId,
+          userId: userId,
           todoDate: formattedDate,
         })
         .then((response) => {

@@ -54,7 +54,7 @@ function ProjectListDrawer({ isOpen, onClose }) {
                   mb={0}
                   navigateTo="/home"
                   onClick={() => {
-                    setProjectId(item.projectId + 1);
+                    setProjectId(item.projectId);
                     console.log('설정된 프로젝트 아이디', projectId);
                     onClose();
                   }}

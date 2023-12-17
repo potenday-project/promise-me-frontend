@@ -30,6 +30,14 @@ function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [isSelectedButton, setIsSelectedButton] = useState(null);
 
+  const today = new Date().toISOString().split('T')[0];
+  const [selectedDate, setSelectedDate] = useState(today);
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+    console.log(selectedDate);
+  };
+
   useEffect(() => {
     axios
       .all([
@@ -43,7 +51,7 @@ function Home() {
           params: { projectId: projectId },
         }),
         axios.get('http://43.201.85.197/calendar/todoAll', {
-          params: { projectId: projectId, todoDate: '2023-12-22' },
+          params: { projectId: projectId, todoDate: selectedDate },
         }),
       ])
       .then(
@@ -61,20 +69,12 @@ function Home() {
         console.error('오류', error);
         setIsLoading(false);
       });
-  }, []);
+  }, [projectId]);
 
-  if (isLoading) {
+  if (isLoading || !data.todoAll) {
     // 데이터를 불러오는 동안 실행할 코드
   } else {
-    roles = data.todoAll.reduce((unique, item) => {
-      return unique.includes(item.role) ? unique : [...unique, item.role];
-    }, []);
-
-    console.log(roles);
-    console.log(data.todoAll);
-    console.log(
-      data.todoAll.filter((allData) => allData.role === isSelectedButton)
-    );
+    roles = data.todoAll.map((item) => item.role);
   }
 
   // 버튼 클릭 상태 관리
@@ -101,7 +101,7 @@ function Home() {
             <ProgressAll percent={data.progress} dday={data.dday} />
           </SwiperSlide>
           <SwiperSlide>
-            <MyCalendar />
+            <MyCalendar onDateChange={handleDateChange} />
           </SwiperSlide>
         </Swiper>
       </section>
@@ -114,12 +114,13 @@ function Home() {
           spaceBetween={4}
         >
           {!isLoading &&
+            roles &&
             roles.map((role, index) => (
               <SwiperSlide style={{ width: 'auto' }} key={index}>
                 <ButtonRound
-                  status={isSelectedButton === role ? 'selected' : 'default'}
+                  status={isSelectedButton === index ? 'selected' : 'default'}
                   onClick={() => {
-                    setIsSelectedButton(role);
+                    setIsSelectedButton(index);
                     console.log(isSelectedButton);
                   }}
                 >
@@ -128,41 +129,34 @@ function Home() {
               </SwiperSlide>
             ))}
         </Swiper>
-        <p className="pr-4 mb-4 text-headline4">
-          AI가 추천해준 큰 일정...이것도 서버에서 받아와야함
-        </p>
-        <ul className="flex flex-col gap-6">
-          {!isLoading &&
-            data.todoAll
-              .filter((allData) => allData.role === isSelectedButton)
-              .map((filteredData, index) => {
-                return (
-                  <div key={index}>
-                    <h3>{filteredData.recommendation}</h3>{' '}
-                    {/* 예: 이름을 출력 */}
-                  </div>
-                );
-              })}
 
-          {/*
-           {!isLoading &&
-            data.todoAll.map((allData, index) => {
-              if (isSelectedButton === allData.role) {
-                return (
-                  <li key={index} className="flex flex-col gap-2">
-                    <p>{allData.members}</p>
-                    {allData.map((todo, todoIndex) => (
-                      <TodoItem
-                        key={todoIndex}
-                        text={todo.text}
-                        isChecked={todo.isChecked}
-                      />
-                    ))}
-                  </li>
-                );
-              }
-              return null;
-            })} */}
+        <ul className="flex flex-col gap-6">
+          {!isLoading && data.todoAll && (
+            <div>
+              {data.todoAll
+                .filter((allData, index) => index === isSelectedButton)
+                .map((item, index) => (
+                  <div key={index}>
+                    <h3 className="mb-4 text-headline4">
+                      {item.recommendation}
+                    </h3>
+                    {item.members &&
+                      item.members.map((member, memberIndex) => (
+                        <div key={memberIndex}>
+                          <p className="text-title4">{member.name}</p>
+                          {member.todoList && member.todoList.length > 0
+                            ? member.todoList.map((todo, todoIndex) => (
+                                <p className="text-body4" key={todoIndex}>
+                                  {todo}
+                                </p>
+                              ))
+                            : null}
+                        </div>
+                      ))}
+                  </div>
+                ))}
+            </div>
+          )}
         </ul>
       </section>
     </>

@@ -9,6 +9,7 @@ const userName = '쌔삭전사';
 function MeetingMinutesDetail() {
   const [meetingMinutes, setMeetingMinutes] = useState([]);
   const [formattedDate, setFormattedDate] = useState('');
+  const { userId, projectId, setProjectId } = useContext(UserContext);
 
   const { meetingId } = useParams();
 
@@ -31,7 +32,7 @@ function MeetingMinutesDetail() {
   useEffect(() => {
     axios
       .get('http://43.201.85.197/meeting/', {
-        params: { projectId: 1 },
+        params: { projectId: projectId },
       })
       .then((response) => {
         setMeetingMinutes(response.data);
