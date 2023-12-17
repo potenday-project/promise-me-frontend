@@ -7,6 +7,14 @@ import ButtonBox from '../ButtonBox';
 import styles from './../project-list-drawer/ProjectListDrawer.module.css';
 import { plus } from '@/assets/icons/svg-icons.js';
 
+const host = window.location.hostname === "localhost" 
+  ? 'http://{your server URL}'
+  : "api";
+
+export const apiClient = axios.create({
+  baseURL: host,
+});
+
 function ProjectListDrawer({ isOpen, onClose }) {
   const { userId, projectId, setProjectId } = useContext(UserContext);
 

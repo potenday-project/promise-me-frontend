@@ -6,6 +6,14 @@ import axios from 'axios';
 import { useContext } from 'react';
 import { useEffect, useState } from 'react';
 
+const host = window.location.hostname === "localhost" 
+  ? 'http://{your server URL}'
+  : "api";
+
+export const apiClient = axios.create({
+  baseURL: host,
+});
+
 function MeetingMinutesList() {
   const [meetingMinutes, setMeetingMinutes] = useState([]);
   const { userId, projectId, setProjectId } = useContext(UserContext);

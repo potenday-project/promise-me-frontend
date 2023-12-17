@@ -16,6 +16,14 @@ import { useContext } from 'react';
 import { UserContext } from '@/contexts/UserContext';
 import axios from 'axios';
 
+const host = window.location.hostname === "localhost" 
+  ? 'http://{your server URL}'
+  : "api";
+
+export const apiClient = axios.create({
+  baseURL: host,
+});
+
 function Home() {
   const { userId, projectId, setProjectId } = useContext(UserContext);
   // 나중에 불러온 데이터로 바꿔주기

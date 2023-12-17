@@ -15,6 +15,14 @@ import axios from 'axios';
 import { useContext } from 'react';
 import { UserContext } from '@/contexts/UserContext';
 
+const host = window.location.hostname === "localhost" 
+  ? 'http://{your server URL}'
+  : "api";
+
+export const apiClient = axios.create({
+  baseURL: host,
+});
+
 function TodoList() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isModalOpen, setIsModalOpen] = useState(false);
