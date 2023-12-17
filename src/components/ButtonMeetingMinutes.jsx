@@ -9,6 +9,7 @@ function ButtonMeetingMinutes({
   id,
   mypage = false,
 }) {
+  const idString = String(id);
   let formattedDate;
   if (!mypage && datetime) {
     formattedDate = new Intl.DateTimeFormat('ko-KR', {
@@ -28,7 +29,7 @@ function ButtonMeetingMinutes({
             <p className="overflow-hidden center text-headline4 text-ellipsis line-clamp-1">
               <span>{title}</span>
             </p>
-            {mypage ? '' : <img src={chevronRight} />}
+            {!mypage && <img src={chevronRight} alt="chevron-right" />}
           </div>
           <time className="text-title5 -text--grey700 ">
             {mypage ? datetime : formattedDate}
@@ -41,7 +42,7 @@ function ButtonMeetingMinutes({
             {summary}
           </p>
         </div>
-        {mypage ? <img src={chevronBigRight} /> : ''}
+        {mypage && <img src={chevronBigRight} alt="chevron-big-right" />}
       </div>
     </Link>
   );
@@ -53,6 +54,6 @@ ButtonMeetingMinutes.propTypes = {
   title: PropTypes.string.isRequired,
   datetime: PropTypes.string.isRequired,
   summary: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired, // id의 타입을 string 또는 number로 설정
   mypage: PropTypes.bool,
 };
