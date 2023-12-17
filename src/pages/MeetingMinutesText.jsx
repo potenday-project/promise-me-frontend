@@ -4,12 +4,13 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useCallback } from 'react';
+import { useContext } from 'react';
+import { UserContext } from '@/contexts/UserContext';
 
 function MeetingMinutesText() {
   const [text, setText] = useState('');
-  const projectId = 1;
   const navigate = useNavigate();
-
+  const { userId, projectId, setProjectId } = useContext(UserContext);
   useEffect(() => {
     const textareaElement = document.getElementById('dynamic-textarea');
     textareaElement.style.height = 'auto';

@@ -29,7 +29,9 @@ function Home() {
   });
   const [isLoading, setIsLoading] = useState(true);
   const [isSelectedButton, setIsSelectedButton] = useState(null);
-  const [selectedDate, setSelectedDate] = useState(null);
+
+  const today = new Date().toISOString().split('T')[0];
+  const [selectedDate, setSelectedDate] = useState(today);
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
