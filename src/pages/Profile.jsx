@@ -1,18 +1,20 @@
 import ButtonMeetingMinutes from '@/components/ButtonMeetingMinutes';
 import TitleTextBox from '@/components/TitleTextBox';
+import { UserContext } from '@/contexts/UserContext';
 import axios from 'axios';
+import { useContext } from 'react';
 import { useState, useEffect } from 'react';
 
 const user = { id: 1, name: '새싹전사', email: 'saessak@gmail.com' };
 
 function Profile() {
   const [projects, setProjects] = useState([]);
-
+  const { userId, projectId, setProjectId } = useContext(UserContext);
   useEffect(() => {
     axios
       .get('http://43.201.85.197/project/', {
         params: {
-          userId: 3,
+          userId: userId,
         },
       })
       .then((response) => {

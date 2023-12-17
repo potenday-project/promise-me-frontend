@@ -3,10 +3,11 @@ import axios from 'axios';
 import ButtonBox from '@/components/ButtonBox';
 
 import TitleTextBox from '@/components/TitleTextBox';
-
-const projectId = 1;
+import { useContext } from 'react';
+import { UserContext } from '@/contexts/UserContext';
 
 const MeetingMinutesVoice = () => {
+  const { userId, projectId, setProjectId } = useContext(UserContext);
   const [stream, setStream] = useState();
   const [media, setMedia] = useState();
   // const [onRec, setOnRec] = useState(true);
