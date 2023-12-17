@@ -112,6 +112,7 @@ function Home() {
           spaceBetween={4}
         >
           {!isLoading &&
+            roles &&
             roles.map((role, index) => (
               <SwiperSlide style={{ width: 'auto' }} key={index}>
                 <ButtonRound
@@ -128,7 +129,7 @@ function Home() {
         </Swiper>
 
         <ul className="flex flex-col gap-6">
-          {!isLoading && (
+          {!isLoading && data.todoAll && (
             <div>
               {data.todoAll
                 .filter((allData, index) => index === isSelectedButton)
@@ -137,18 +138,19 @@ function Home() {
                     <h3 className="mb-4 text-headline4">
                       {item.recommendation}
                     </h3>
-                    {item.members.map((member, memberIndex) => (
-                      <div key={memberIndex}>
-                        <p className="text-title4">{member.name}</p>
-                        {member.todoList && member.todoList.length > 0
-                          ? member.todoList.map((todo, todoIndex) => (
-                              <p className="text-body4" key={todoIndex}>
-                                {todo}
-                              </p>
-                            ))
-                          : null}
-                      </div>
-                    ))}
+                    {item.members &&
+                      item.members.map((member, memberIndex) => (
+                        <div key={memberIndex}>
+                          <p className="text-title4">{member.name}</p>
+                          {member.todoList && member.todoList.length > 0
+                            ? member.todoList.map((todo, todoIndex) => (
+                                <p className="text-body4" key={todoIndex}>
+                                  {todo}
+                                </p>
+                              ))
+                            : null}
+                        </div>
+                      ))}
                   </div>
                 ))}
             </div>
