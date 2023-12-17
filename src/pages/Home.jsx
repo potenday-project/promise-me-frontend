@@ -55,7 +55,8 @@ function Home() {
       .then(
         axios.spread((projectRes, ddayRes, progressRes, todoAllRes) => {
           setData({
-            projectData: projectRes.data,
+            projectData: '2023-12-17',
+            // projectRes.data,
             dday: ddayRes.data.Dday,
             progress: progressRes.data.progress,
             todoAll: todoAllRes.data,
@@ -69,7 +70,7 @@ function Home() {
       });
   }, [projectId]);
 
-  if (isLoading) {
+  if (isLoading || !data.todoAll) {
     // 데이터를 불러오는 동안 실행할 코드
   } else {
     roles = data.todoAll.map((item) => item.role);
@@ -155,26 +156,6 @@ function Home() {
                 ))}
             </div>
           )}
-
-          {/*
-           {!isLoading &&
-            data.todoAll.map((allData, index) => {
-              if (isSelectedButton === allData.role) {
-                return (
-                  <li key={index} className="flex flex-col gap-2">
-                    <p>{allData.members}</p>
-                    {allData.map((todo, todoIndex) => (
-                      <TodoItem
-                        key={todoIndex}
-                        text={todo.text}
-                        isChecked={todo.isChecked}
-                      />
-                    ))}
-                  </li>
-                );
-              }
-              return null;
-            })} */}
         </ul>
       </section>
     </>
