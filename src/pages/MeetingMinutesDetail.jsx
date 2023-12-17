@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import TextBox from '@/components/TextBox';
 import TitleTextBox from '@/components/TitleTextBox';
+import { useContext } from 'react';
+import { UserContext } from '@/contexts/UserContext';
 const userName = '쌔삭전사';
 
 function MeetingMinutesDetail() {
