@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import TextBox from '@/components/TextBox';
 import TitleTextBox from '@/components/TitleTextBox';
+<<<<<<< HEAD
 
 const host = window.location.hostname === "localhost" 
   ? 'http://{your server URL}'
@@ -13,6 +14,10 @@ export const apiClient = axios.create({
   baseURL: host,
 });
 
+=======
+import { useContext } from 'react';
+import { UserContext } from '@/contexts/UserContext';
+>>>>>>> 2ee0072f931f524db92e6b3d591b45eeb24cb540
 const userName = '쌔삭전사';
 
 function MeetingMinutesDetail() {

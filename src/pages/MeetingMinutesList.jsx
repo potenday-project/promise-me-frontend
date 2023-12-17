@@ -37,7 +37,7 @@ function MeetingMinutesList() {
     <>
       <FloatingButton />
       <TitleTextBox
-        title={`프로젝트 10일의 기적의 \n회의록은 총 ${meetingMinutes.length}개 입니다`}
+        title={`약속해주세요의 \n회의록은 총 ${meetingMinutes.length}개 입니다`}
       />
       <div className="grid grid-cols-2 gap-4 mt-6">
         {meetingMinutes.map((data, index) => (
