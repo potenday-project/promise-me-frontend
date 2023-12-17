@@ -7,6 +7,14 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from 'axios';
 
+const host = window.location.hostname === "localhost" 
+  ? 'http://{your server URL}'
+  : "api";
+
+export const apiClient = axios.create({
+  baseURL: host,
+});
+
 function CustomInput({ value, onClick }) {
   return (
     <button 

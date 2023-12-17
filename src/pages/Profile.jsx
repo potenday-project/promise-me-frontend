@@ -5,6 +5,14 @@ import axios from 'axios';
 import { useContext } from 'react';
 import { useState, useEffect } from 'react';
 
+const host = window.location.hostname === "localhost" 
+  ? 'http://{your server URL}'
+  : "api";
+
+export const apiClient = axios.create({
+  baseURL: host,
+});
+
 const user = { id: 1, name: '새싹전사', email: 'saessak@gmail.com' };
 
 function Profile() {
