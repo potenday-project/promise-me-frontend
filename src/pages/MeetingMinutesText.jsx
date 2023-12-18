@@ -7,14 +7,6 @@ import { useCallback } from 'react';
 import { useContext } from 'react';
 import { UserContext } from '@/contexts/UserContext';
 
-const host = window.location.hostname === "localhost" 
-  ? 'http://{your server URL}'
-  : "api";
-
-export const apiClient = axios.create({
-  baseURL: host,
-});
-
 function MeetingMinutesText() {
   const [text, setText] = useState('');
   const navigate = useNavigate();

@@ -7,14 +7,6 @@ import { UserContext } from '@/contexts/UserContext';
 import { useContext } from 'react';
 import { onRecod } from '@/assets/icons/svg-icons';
 
-const host = window.location.hostname === "localhost" 
-  ? 'http://{your server URL}'
-  : "api";
-
-export const apiClient = axios.create({
-  baseURL: host,
-});
-
 const MeetingMinutesVoice = () => {
   const { userId, projectId, setProjectId } = useContext(UserContext);
   const [stream, setStream] = useState();
