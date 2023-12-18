@@ -19,6 +19,7 @@ export { default as meetingGrey } from './meeting-grey.svg';
 export { default as menu } from './menu.svg';
 export { default as mic } from './mic.svg';
 export { default as noteTaking } from './note-taking.svg';
+export { default as onRecod } from './on-recod.png';
 export { default as plus } from './plus.svg';
 export { default as profileBlue } from './profile-blue.svg';
 export { default as profileGrey } from './profile-grey.svg';

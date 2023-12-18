@@ -28,17 +28,19 @@ function Home() {
     todoAll: null,
   });
   const [isLoading, setIsLoading] = useState(true);
-  const [isSelectedButton, setIsSelectedButton] = useState(null);
+  const [isSelectedButton, setIsSelectedButton] = useState(0);
 
   const today = new Date().toISOString().split('T')[0];
   const [selectedDate, setSelectedDate] = useState(today);
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
+    setIsSelectedButton(0);
     console.log(selectedDate);
   };
 
   useEffect(() => {
+    setIsLoading(true);
     axios
       .all([
         axios.get('http://43.201.85.197/project/', {
@@ -56,12 +58,13 @@ function Home() {
       ])
       .then(
         axios.spread((projectRes, ddayRes, progressRes, todoAllRes) => {
-          setData({
+          setData((prevData) => ({
+            ...prevData,
             projectData: projectRes.data,
             dday: ddayRes.data.Dday,
             progress: progressRes.data.progress,
             todoAll: todoAllRes.data,
-          });
+          }));
           setIsLoading(false);
         })
       )
@@ -69,12 +72,14 @@ function Home() {
         console.error('오류', error);
         setIsLoading(false);
       });
-  }, [projectId]);
+  }, [projectId, selectedDate]);
 
   if (isLoading || !data.todoAll) {
     // 데이터를 불러오는 동안 실행할 코드
   } else {
     roles = data.todoAll.map((item) => item.role);
+    console.log(data.todoAll);
+    console.log(roles);
   }
 
   // 버튼 클릭 상태 관리
@@ -121,7 +126,6 @@ function Home() {
                   status={isSelectedButton === index ? 'selected' : 'default'}
                   onClick={() => {
                     setIsSelectedButton(index);
-                    console.log(isSelectedButton);
                   }}
                 >
                   {role}
@@ -130,8 +134,8 @@ function Home() {
             ))}
         </Swiper>
 
-        <ul className="flex flex-col gap-6">
-          {!isLoading && data.todoAll && (
+        <ul className="flex flex-col gap-6 mb-6">
+          {!isLoading && (
             <div>
               {data.todoAll
                 .filter((allData, index) => index === isSelectedButton)
@@ -140,19 +144,31 @@ function Home() {
                     <h3 className="mb-4 text-headline4">
                       {item.recommendation}
                     </h3>
-                    {item.members &&
-                      item.members.map((member, memberIndex) => (
-                        <div key={memberIndex}>
-                          <p className="text-title4">{member.name}</p>
-                          {member.todoList && member.todoList.length > 0
-                            ? member.todoList.map((todo, todoIndex) => (
-                                <p className="text-body4" key={todoIndex}>
-                                  {todo}
-                                </p>
-                              ))
-                            : null}
-                        </div>
-                      ))}
+                    {item.members.map((member, memberIndex) => (
+                      <div
+                        className={`${memberIndex === 1 ? 'mt-3' : ''}`}
+                        key={memberIndex}
+                      >
+                        <p className="text-title4">{member.name}</p>
+
+                        {member.todoList.length === 0 ? (
+                          <p className="ml-8">일정이 없어요</p>
+                        ) : (
+                          member.todoList.map((todo, todoIndex) => {
+                            console.log('todo.status:', todo.status); // 콘솔 로그 출력
+                            return (
+                              <TodoItem
+                                disableClick={true}
+                                ischecked={todo.status}
+                                text={todo.content}
+                                className="text-body4"
+                                key={todoIndex}
+                              />
+                            );
+                          })
+                        )}
+                      </div>
+                    ))}
                   </div>
                 ))}
             </div>

@@ -1,10 +1,11 @@
-import { useState, useCallback } from 'react';
-import axios from 'axios';
 import ButtonBox from '@/components/ButtonBox';
+import axios from 'axios';
+import { useCallback, useState } from 'react';
 
 import TitleTextBox from '@/components/TitleTextBox';
-import { useContext } from 'react';
 import { UserContext } from '@/contexts/UserContext';
+import { useContext } from 'react';
+import { onRecod } from '@/assets/icons/svg-icons';
 
 const MeetingMinutesVoice = () => {
   const { userId, projectId, setProjectId } = useContext(UserContext);
@@ -176,7 +177,7 @@ const MeetingMinutesVoice = () => {
         <div className="flex flex-col items-center gap-4 m-9">
           <img
             onClick={recState == 2 ? onRecAudio : offRecAudio}
-            src=""
+            src={onRecod}
             alt={
               !recState
                 ? '녹음 완료'
@@ -184,17 +185,15 @@ const MeetingMinutesVoice = () => {
                   ? '녹음중'
                   : '녹음 준비중'
             }
-            className="-bg--grey100 w-[240px] h-[240px]"
+            className="-bg--grey100 w-[240px] h-[240px] rounded-lg"
           ></img>
           <p className="text-center text-title4">
             {!recState ? (
-              '성공적으로 녹음이 완료 되었어요!'
+              '성공적으로 녹음이 완료 되었어요! \n 녹음한 내용을  AI가 요약해드려요'
             ) : recState === 1 ? (
-              <>
-                녹음을 완료하시면 녹음한 내용을 <br /> AI가 요약해드려요
-              </>
+              <>녹음을 완료하시려면 한번더 눌러주세요</>
             ) : (
-              '캐릭터를 눌러 녹음을 시작해 주세요'
+              '마이크를 눌러 녹음을 시작해 주세요'
             )}
           </p>
         </div>

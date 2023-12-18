@@ -3,13 +3,14 @@ import { useState } from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 
-function TodoItem({ text, ischecked, onClick }) {
+function TodoItem({ text, ischecked, onClick, disableClick }) {
   const [isCheckedState, setIsChecked] = useState(ischecked);
 
   const onClickCheck = () => {
-    setIsChecked(!isCheckedState);
+    if (!disableClick) {
+      setIsChecked(!isCheckedState);
+    }
   };
-
   return (
     <>
       <StyledInputWrapper onClick={onClick} className="flex w-full px-2">
