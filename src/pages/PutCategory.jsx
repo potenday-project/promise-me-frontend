@@ -6,14 +6,6 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 
-const host = window.location.hostname === "localhost" 
-  ? 'http://{your server URL}'
-  : "api";
-
-export const apiClient = axios.create({
-  baseURL: host,
-});
-
 function PutCategory() {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);

@@ -5,14 +5,6 @@ import axios from 'axios';
 import TextBox from '@/components/TextBox';
 import TitleTextBox from '@/components/TitleTextBox';
 
-const host = window.location.hostname === "localhost" 
-  ? 'http://{your server URL}'
-  : "api";
-
-export const apiClient = axios.create({
-  baseURL: host,
-});
-
 const userName = '쌔삭전사';
 
 function MeetingMinutesDetail() {

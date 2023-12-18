@@ -7,14 +7,6 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
-const host = window.location.hostname === "localhost" 
-  ? 'http://{your server URL}'
-  : "api";
-
-export const apiClient = axios.create({
-  baseURL: host,
-});
-
 function PutMembers() {
 
   const navigate = useNavigate();
