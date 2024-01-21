@@ -11,7 +11,7 @@ function Landing() {
       </div>
       <img src={landing} className="w-screen h-screen scale-105"></img>
       <div className="fixed w-[calc(100vw-32px)]  bottom-0">
-        <ButtonBox navigateTo="/putprojectname">
+        <ButtonBox navigateTo="/Onboarding">
           AI 로 프로젝트를 관리를 시작해 보세요
         </ButtonBox>
       </div>
