@@ -69,7 +69,8 @@ function TabBar() {
     pathname.startsWith('/meetingminutesdetail/') ||
     pathname === '/meetingminutestext' ||
     pathname === '/meetingminutesvoice' ||
-    pathname === '/roleinfo'
+    pathname === '/roleinfo' ||
+    pathname === '/onboarding'
   ) {
     return null;
   }

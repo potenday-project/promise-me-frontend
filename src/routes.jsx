@@ -8,6 +8,7 @@ import MeetingMinutesDetail from './pages/MeetingMinutesDetail';
 import MeetingMinutesList from './pages/MeetingMinutesList';
 import MeetingMinutesText from './pages/MeetingMinutesText';
 import MeetingMinutesVoice from './pages/MeetingMinutesVoice';
+import Onboarding from './pages/Onboarding';
 import Profile from './pages/Profile';
 import ProjectInfo from './pages/ProjectInfo';
 import PutCategory from './pages/PutCategory';
@@ -32,6 +33,7 @@ const router = createBrowserRouter(
         <Route path="meetingminuteslist" element={<MeetingMinutesList />} />
         <Route path="meetingminutestext" element={<MeetingMinutesText />} />
         <Route path="meetingminutesvoice" element={<MeetingMinutesVoice />} />
+        <Route path="onboarding" element={<Onboarding />} />
         <Route path="profile" element={<Profile />} />
         <Route path="projectinfo" element={<ProjectInfo />} />
         <Route path="putcategory" element={<PutCategory />} />

@@ -45,7 +45,10 @@ function Header() {
   }, [pathname]);
 
   // 헤더 필요 없는 페이지
-  if (pathname === '/' || pathname === '/signin') {
+  if (
+    pathname === '/' ||
+    pathname === '/signin' ||
+    pathname === '/onboarding') {
     return null;
   }
 
