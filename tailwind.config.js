@@ -100,6 +100,7 @@ export default {
         '--system-black': '#121212',
         '--system-white': '#FFFFFF',
         '--system-danger': '#F5535E',
+        '--kakao': '#FEE500',
       },
       screens: {
         'minW': '320px',

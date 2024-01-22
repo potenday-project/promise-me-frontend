@@ -13,6 +13,7 @@ export { default as editDefault } from './edit-default.svg';
 export { default as edit } from './edit.svg';
 export { default as homeBlue } from './home-blue.svg';
 export { default as homeGrey } from './home-grey.svg';
+export { default as kakao } from './kakao.svg';
 export { default as landing } from './landing.svg';
 export { default as meetingBlue } from './meeting-blue.svg';
 export { default as meetingGrey } from './meeting-grey.svg';
