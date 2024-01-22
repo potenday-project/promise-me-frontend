@@ -1,12 +1,14 @@
 import ButtonBox from "@/components/ButtonBox";
 import ToSignUp from "@/components/ToSignUp";
+import KakaoLogin from "@/components/KakaoLogin";
 
 function Onboarding() {
+
   return (
     <>
       <div>아이콘</div>
       <ButtonBox navigateTo="/signin">로그인하기</ButtonBox>
-      <div>카카오로 시작하기 버튼 생성</div>
+      <KakaoLogin/>
       <ToSignUp/>
     </>
   );
