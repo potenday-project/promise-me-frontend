@@ -17,7 +17,9 @@ import PutMembers from './pages/PutMembers';
 import PutProjectName from './pages/PutProjectName';
 import RoleInfo from './pages/RoleInfo';
 import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
+import SignUp1 from './pages/SignUp1';
+import SignUp2 from './pages/SignUp2';
+import SignUp3 from './pages/SignUp3';
 import TodoList from './pages/todo-list/TodoList';
 
 const router = createBrowserRouter(
@@ -42,7 +44,9 @@ const router = createBrowserRouter(
         <Route path="putprojectname" element={<PutProjectName />} />
         <Route path="roleinfo" element={<RoleInfo />} />
         <Route path="signin" element={<SignIn />} />
-        <Route path="signup" element={<SignUp />} />
+        <Route path="signup1" element={<SignUp1 />} />
+        <Route path="signup2" element={<SignUp2 />} />
+        <Route path="signup3" element={<SignUp3 />} />
         <Route path="todolist" element={<TodoList />} />
       </Route>
     </>

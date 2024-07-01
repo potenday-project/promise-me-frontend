@@ -17,7 +17,10 @@ function Header() {
     setTitle('');
 
     // 경로에 따라 타이틀 변경
-    if (pathname === '/signup') {
+    if (pathname === '/signup1' ||
+        pathname === '/signup2' ||
+        pathname === '/signup3'
+    ) {
       setTitle('회원가입');
     } else if (pathname === '/projectinfo') {
       setTitle('가이드북');
