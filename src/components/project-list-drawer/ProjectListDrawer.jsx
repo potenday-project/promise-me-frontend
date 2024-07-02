@@ -1,11 +1,11 @@
 import { x } from '@/assets/icons/svg-icons.js';
 import { useContext } from 'react';
 import { UserContext } from '@/contexts/UserContext';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import ButtonBox from '../ButtonBox';
 import styles from './../project-list-drawer/ProjectListDrawer.module.css';
 import { plus } from '@/assets/icons/svg-icons.js';
+import api from '@/utils/Api';
 
 function ProjectListDrawer({ isOpen, onClose }) {
   const { userId, projectId, setProjectId } = useContext(UserContext);
@@ -13,15 +13,9 @@ function ProjectListDrawer({ isOpen, onClose }) {
   const [projectList, setProjectList] = useState([]);
 
   useEffect(() => {
-    axios
-      .get('http://43.201.85.197/project/', {
-        params: {
-          userId: userId,
-        },
-      })
+    api.get('project', { params: { userId: userId } })
       .then((response) => {
         setProjectList(response.data);
-        console.log(response);
       })
       .catch((error) => {
         console.error('데이터를 가져오는 중 오류가 발생했습니다:', error);

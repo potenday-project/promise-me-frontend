@@ -10,10 +10,9 @@ import {
   square,
   squareBeforeChecked,
 } from '@/assets/icons/svg-icons';
-import { useEffect } from 'react';
-import axios from 'axios';
-import { useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import { UserContext } from '@/contexts/UserContext';
+import api from '@/utils/Api';
 
 function TodoList() {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -58,8 +57,8 @@ function TodoList() {
   };
 
   const getTodos = () => {
-    axios
-      .get('http://43.201.85.197/todo/', {
+    api
+      .get('todo', {
         params: {
           projectId: projectId,
           userId: userId,
@@ -75,8 +74,8 @@ function TodoList() {
   };
 
   const handleTodoItemClick = (todoId) => {
-    axios
-      .post('http://43.201.85.197/todo/check', { todoId })
+    api
+      .post('todo/check', { todoId })
       .then((response) => {
         console.log('서버 응답:', response.data);
         getTodos(); // POST 요청이 성공한 후에 데이터 다시 불러오기
@@ -94,8 +93,8 @@ function TodoList() {
   const handleKeyPress = (e) => {
     if (e.key === 'Enter' && inputValue.trim() !== '') {
       console.log(inputValue);
-      axios
-        .post('http://43.201.85.197/todo/', {
+      api
+        .post('todo', {
           content: inputValue,
           projectId: projectId,
           userId: userId,

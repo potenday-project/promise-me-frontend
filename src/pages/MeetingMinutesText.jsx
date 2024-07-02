@@ -1,11 +1,9 @@
 import ButtonBox from '@/components/ButtonBox';
 import TitleTextBox from '@/components/TitleTextBox';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { useCallback } from 'react';
-import { useContext } from 'react';
 import { UserContext } from '@/contexts/UserContext';
+import api from '@/utils/Api';
 
 function MeetingMinutesText() {
   const [text, setText] = useState('');
@@ -18,8 +16,8 @@ function MeetingMinutesText() {
   }, [text]);
 
   const handleSubmit = useCallback(() => {
-    axios
-      .post('http://43.201.85.197/meeting/summary', {
+    api
+      .post('meeting/summary', {
         meetingContent: text,
         projectId: projectId,
       })

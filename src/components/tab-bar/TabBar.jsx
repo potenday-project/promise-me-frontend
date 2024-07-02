@@ -59,7 +59,9 @@ function TabBar() {
     pathname === '/' ||
     pathname === '/landing' ||
     pathname === '/signin' ||
-    pathname === '/signup' ||
+    pathname === '/signup1' ||
+    pathname === '/signup2' ||
+    pathname === '/signup3' ||
     pathname === '/projectinfo' ||
     pathname === '/putprojectname' ||
     pathname === '/putcategory' ||
