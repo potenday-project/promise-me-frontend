@@ -1,7 +1,9 @@
 import Axios from 'axios';
 
+const baseURL = 'http://43.201.85.197';
+
 const api = Axios.create({
-	baseURL: import.meta.env.VITE_BASEURL,
+	baseURL: baseURL,
 	headers: {
 		'Content-Type': 'application/json',
 	},

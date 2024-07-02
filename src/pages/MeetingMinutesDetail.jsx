@@ -1,11 +1,11 @@
 // 필요한 모듈 불러오기
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import TextBox from '@/components/TextBox';
 import TitleTextBox from '@/components/TitleTextBox';
 import { useContext } from 'react';
 import { UserContext } from '@/contexts/UserContext';
+import api from '@/utils/Api';
 const userName = '쌔삭전사';
 
 function MeetingMinutesDetail() {
@@ -32,8 +32,8 @@ function MeetingMinutesDetail() {
   }, [meeting]);
 
   useEffect(() => {
-    axios
-      .get('http://43.201.85.197/meeting/', {
+    api
+      .get('meeting', {
         params: { projectId: projectId },
       })
       .then((response) => {

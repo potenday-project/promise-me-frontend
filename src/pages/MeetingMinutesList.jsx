@@ -2,17 +2,16 @@ import ButtonMeetingMinutes from '@/components/ButtonMeetingMinutes';
 import FloatingButton from '@/components/FloatingButton';
 import TitleTextBox from '@/components/TitleTextBox';
 import { UserContext } from '@/contexts/UserContext';
-import axios from 'axios';
-import { useContext } from 'react';
-import { useEffect, useState } from 'react';
+import api from '@/utils/Api';
+import { useEffect, useState, useContext } from 'react';
 
 function MeetingMinutesList() {
   const [meetingMinutes, setMeetingMinutes] = useState([]);
   const { userId, projectId, setProjectId } = useContext(UserContext);
 
   useEffect(() => {
-    axios
-      .get('http://43.201.85.197/meeting/', {
+    api
+      .get('meeting', {
         params: {
           projectId: projectId,
         },
